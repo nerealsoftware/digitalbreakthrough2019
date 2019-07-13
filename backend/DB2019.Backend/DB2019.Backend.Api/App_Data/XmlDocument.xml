@@ -524,7 +524,7 @@
         </member>
         <member name="T:DB2019.Backend.Api.Controllers.IssueController">
             <summary>
-            Заявки
+                Заявки
             </summary>
         </member>
         <member name="M:DB2019.Backend.Api.Controllers.IssueController.Post(System.String,DB2019.Backend.Api.Models.NewIssueData)">
