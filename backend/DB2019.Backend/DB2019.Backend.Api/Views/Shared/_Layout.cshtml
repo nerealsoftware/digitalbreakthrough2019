@@ -2,40 +2,74 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
-</head>
-<body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="@Url.Content("~/css/w3.css")">
+    <link rel="stylesheet" href="@Url.Content("~/css/font-awesome.min.css")">
+    <style type="text/css">
+        .header-bg {
+            background: url('@Url.Content("~/Images/hdr3.jpg")') no-repeat;
+            background-position: center left;
+            min-height: 250px;
+        }
+    </style>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+</head>
+
+<body class="w3-light-grey">
+
+    <div class="w3-content w3-margin-top  w3-margin-bottom w3-card" style="max-width:1400px;">
+
+        <div class="header-bg">
+        </div>
+
+        <div class="w3-row">
+
+            <div class="w3-col">
+
+                <div class="w3-container w3-teal w3-border-top">
+                    <h1>Nereal ЖКХ</h1>
+                </div>
+
+                <div class="w3-bar w3-black w3-large">
+                    <a href="#" class="w3-bar-item w3-button w3-mobile"><i class="fa fa-home"></i></a>
+                    <a href="#" class="w3-bar-item w3-button w3-mobile">Карта обращений</a>
+                    <div class="w3-dropdown-hover w3-center">
+                        <button class="w3-button w3-mobile w3-center">Обращения по категориям</button>
+                        <div class="w3-dropdown-content w3-bar-block w3-card-4 w3-light-grey">
+                            <a href="#" class="w3-bar-item w3-button w3-mobile">Дороги</a>
+                            <a href="#" class="w3-bar-item w3-button w3-mobile">Тротуары</a>
+                            <a href="#" class="w3-bar-item w3-button w3-mobile">Ямы</a>
+                            <a href="#" class="w3-bar-item w3-button w3-mobile">Мусор</a>
+                            <a href="#" class="w3-bar-item w3-button w3-mobile">Транспорт</a>
+                            <a href="#" class="w3-bar-item w3-button w3-mobile">Отопление</a>
+                            <a href="#" class="w3-bar-item w3-button w3-mobile">Образование детей</a>
+                        </div>
+                    </div>
+                    <a href="#" class="w3-bar-item w3-button w3-mobile">О проекте</a>
+                </div>
+
+                <div class="w3-white">
+
+                    <div class="w3-container w3-white">
+                        <h2>Nereal ЖКХ, нереальное решение реальных проблем!</h2>
+                    </div>
+
+                    @RenderBody()
+
+                </div>
+
+                <div class="w3-container w3-teal">
+                    <h5>Nereal ЖКХ</h5>
+                    <p class="w3-small">Обращайтесь к нам, и ваши волосы станут мягкими и шелковистыми! (ц) 2019</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
     @RenderSection("scripts", required: false)
 </body>
+
 </html>
