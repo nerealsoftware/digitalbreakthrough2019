@@ -11,7 +11,15 @@
 
     <string name="menu_home">Сообщить о проблеме</string>
     <string name="menu_gallery">Голосовать за проблему</string>
-    <string name="menu_slideshow">Что-то ещё...</string>
+    <string name="menu_slideshow">Что-то ещё…</string>
     <string name="menu_share">Поделиться</string>
     <string name="menu_send">Отправить</string>
+    <string name="input_step_1">1. Выберите категорию обращения:</string>
+    <string name="input_step_2">2. Прикрепите фотографию проблемы:</string>
+    <string name="input_step_3">3. Добавьте описание проблемы (по желанию):</string>
+    <string name="button_photo">Прикрепить фото</string>
+    <string name="button_send">Отправить обращение</string>
+
+    <!--фрагмент отправки сообщения -->
+
 </resources>
