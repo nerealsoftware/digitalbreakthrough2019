@@ -11,16 +11,25 @@ import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
+import java.util.List;
+
 import co.lujun.androidtagview.TagContainerLayout;
 import co.lujun.androidtagview.TagView;
+import nerealsoftware.digitalbreakthrough2019.mobile.pojo.Category;
+import nerealsoftware.digitalbreakthrough2019.mobile.pojo.Tag;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class InputFragment extends Fragment {
     private static final String TAG = "InputFragment";
@@ -67,18 +76,64 @@ public class InputFragment extends Fragment {
 
         final Context context = getContext();
 
-        // инициализация категорий TODO: с сервера
-        String[] arraySpinner = new String[] {
-                "Дороги", "Тротуары", "Мусорная свалка", "Прочее..."
-        };
+        // инициализация категорий
+        NetworkService.getInstance().api().getCategories().enqueue(new Callback<List<Category>>() {
+            @Override
+            public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
+                if (response.body() == null) return;
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, arraySpinner);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        categories.setAdapter(adapter);
+                int count = response.body().size();
+                String[] arraySpinner = new String[count];
+                for (int i = 0; i < count; i++) {
+                    arraySpinner[i] = response.body().get(i).toString();
+                }
 
-        tags.setTags(new String[] {
-                "яма", "открытый люк", "большая лужа",
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, arraySpinner);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                categories.setAdapter(adapter);
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Category>> call, Throwable t) {
+                Toast.makeText(context, "Ошибка при получении категорий: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
         });
+
+        categories.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                // запрос тэгов по категории.
+                // TODO: Надо брать id из самой категории, а не позиция в списке + 1, но для хакатона и так сойдет
+                NetworkService.getInstance().api().getTags(i + 1).enqueue(new Callback<List<Tag>>() {
+                    @Override
+                    public void onResponse(Call<List<Tag>> call, Response<List<Tag>> response) {
+                        if (response.body() == null) return;
+
+                        int count = response.body().size();
+                        String[] arrayTags = new String[count];
+                        for (int i = 0; i < count; i++) {
+                            arrayTags[i] = response.body().get(i).toString();
+                        }
+
+                        tags.setTags(arrayTags);
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<Tag>> call, Throwable t) {
+
+                    }
+                });
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+
+
         tags.setOnTagClickListener(new TagView.OnTagClickListener() {
 
             @Override
@@ -119,20 +174,6 @@ public class InputFragment extends Fragment {
         }
         else {
             coordinates.setText(String.format("широта: %s долгота: %s", location.getLatitude(), location.getLongitude()));
-        }
-    }
-
-    private void setTagSelectedColor(int position) {
-        for (int i = 0; i < tags.getTags().size(); i++) {
-            TagView tag = tags.getTagView(i);
-            if (i == position) {
-                tag.setTagBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                tag.setTagTextColor(getResources().getColor(R.color.colorAccent));
-            } else {
-                tag.setTagBackgroundColor(getResources().getColor(R.color.colorAccent));
-                tag.setTagTextColor(getResources().getColor(R.color.colorPrimary));
-            }
-            tag.invalidate();
         }
     }
 
