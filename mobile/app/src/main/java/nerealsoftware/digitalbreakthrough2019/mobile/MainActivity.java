@@ -13,6 +13,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.view.Menu;
 
@@ -70,11 +72,13 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
+        Fragment fragment = null;
+
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            // Handle the camera action
+            fragment = InputFragment.newInstance();
+
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
@@ -83,6 +87,11 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_send) {
 
+        }
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        if (fragment != null) {
+            fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
