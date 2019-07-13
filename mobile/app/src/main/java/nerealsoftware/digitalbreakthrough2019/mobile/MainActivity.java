@@ -1,7 +1,9 @@
 package nerealsoftware.digitalbreakthrough2019.mobile;
 
+import android.Manifest;
 import android.os.Bundle;
 
+import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 
@@ -17,6 +19,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import android.view.Menu;
+
+import org.osmdroid.config.Configuration;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -35,6 +39,11 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+
+        // для работы osmdroid надо передавать им юзер-агент
+        Configuration.getInstance().setUserAgentValue(BuildConfig.APPLICATION_ID);
+        ActivityCompat.requestPermissions(MainActivity.this,
+                new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.ACCESS_FINE_LOCATION}, 1);
     }
 
     @Override
@@ -80,6 +89,7 @@ public class MainActivity extends AppCompatActivity
             fragment = InputFragment.newInstance();
 
         } else if (id == R.id.nav_gallery) {
+            fragment = MapFragment.newInstance();
 
         } else if (id == R.id.nav_slideshow) {
 
