@@ -569,9 +569,14 @@
                 Параметры новой заявки
             </summary>
         </member>
-        <member name="P:DB2019.Backend.Api.Models.NewIssueData.Category">
+        <member name="P:DB2019.Backend.Api.Models.NewIssueData.CategoryId">
             <summary>
-                Категория заявки
+                Идентификатор категории заявки
+            </summary>
+        </member>
+        <member name="P:DB2019.Backend.Api.Models.NewIssueData.Position">
+            <summary>
+                Гео-позиция пользователя
             </summary>
         </member>
         <member name="P:DB2019.Backend.Api.Models.NewIssueData.Photo">
@@ -584,9 +589,9 @@
                 Необязательный комментарий к заявке
             </summary>
         </member>
-        <member name="P:DB2019.Backend.Api.Models.NewIssueData.Position">
+        <member name="P:DB2019.Backend.Api.Models.NewIssueData.Tags">
             <summary>
-                Гео-позиция пользователя
+                Список идентификаторов меток
             </summary>
         </member>
         <member name="T:DB2019.Backend.Api.Models.TagData">
