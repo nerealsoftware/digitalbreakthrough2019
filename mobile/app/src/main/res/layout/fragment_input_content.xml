@@ -81,10 +81,5 @@
         android:layout_marginRight="10dp"
         android:text="@string/button_send" />
 
-    <TextView
-        android:id="@+id/tvCoordinates"
-        android:padding="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

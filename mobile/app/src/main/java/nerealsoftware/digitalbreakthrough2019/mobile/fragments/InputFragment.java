@@ -1,4 +1,4 @@
-package nerealsoftware.digitalbreakthrough2019.mobile;
+package nerealsoftware.digitalbreakthrough2019.mobile.fragments;
 
 import android.app.Activity;
 import android.content.Context;
@@ -25,6 +25,9 @@ import java.util.List;
 
 import co.lujun.androidtagview.TagContainerLayout;
 import co.lujun.androidtagview.TagView;
+import nerealsoftware.digitalbreakthrough2019.mobile.MainActivity;
+import nerealsoftware.digitalbreakthrough2019.mobile.NetworkService;
+import nerealsoftware.digitalbreakthrough2019.mobile.R;
 import nerealsoftware.digitalbreakthrough2019.mobile.pojo.Category;
 import nerealsoftware.digitalbreakthrough2019.mobile.pojo.Tag;
 import retrofit2.Call;
@@ -44,8 +47,6 @@ public class InputFragment extends Fragment {
     private TextView comment;
     private Button sendButton;
 
-    private TextView coordinates;
-
     public static InputFragment newInstance() {
         return new InputFragment();
     }
@@ -64,8 +65,6 @@ public class InputFragment extends Fragment {
 
         sendButton = rootView.findViewById(R.id.buttonSend);
         sendButton.getBackground().setColorFilter(getResources().getColor(R.color.colorAccent), PorterDuff.Mode.MULTIPLY);
-
-        coordinates = rootView.findViewById(R.id.tvCoordinates);
 
         return rootView;
     }
@@ -133,7 +132,8 @@ public class InputFragment extends Fragment {
         });
 
 
-
+        // выбор категорий к отправке
+        // TODO: можно только выбрать
         tags.setOnTagClickListener(new TagView.OnTagClickListener() {
 
             @Override
@@ -167,14 +167,13 @@ public class InputFragment extends Fragment {
             }
         });
 
-        // определение координат (отладка)
-        Location location = ((MainActivity)context).currentLocation;
-        if (location == null) {
-            coordinates.setText("местоположение не определилось");
-        }
-        else {
-            coordinates.setText(String.format("широта: %s долгота: %s", location.getLatitude(), location.getLongitude()));
-        }
+        // отправка запроса
+        sendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
     @Override

@@ -1,4 +1,4 @@
-package nerealsoftware.digitalbreakthrough2019.mobile;
+package nerealsoftware.digitalbreakthrough2019.mobile.fragments;
 
 import android.location.Location;
 import android.os.Bundle;
@@ -13,6 +13,10 @@ import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
+
+import nerealsoftware.digitalbreakthrough2019.mobile.Const;
+import nerealsoftware.digitalbreakthrough2019.mobile.MainActivity;
+import nerealsoftware.digitalbreakthrough2019.mobile.R;
 
 public class MapFragment extends Fragment {
     private static final String TAG = "MapFragment";

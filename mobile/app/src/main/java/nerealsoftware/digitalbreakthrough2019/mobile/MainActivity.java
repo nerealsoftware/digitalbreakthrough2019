@@ -11,7 +11,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 
-import android.os.Debug;
 import android.util.Log;
 import android.view.MenuItem;
 
@@ -29,12 +28,23 @@ import android.widget.Toast;
 
 import org.osmdroid.config.Configuration;
 
+import nerealsoftware.digitalbreakthrough2019.mobile.fragments.DebugFragment;
+import nerealsoftware.digitalbreakthrough2019.mobile.fragments.InputFragment;
+import nerealsoftware.digitalbreakthrough2019.mobile.fragments.MapFragment;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         LocationListener {
 
+
+    private String sessionId = null;
     private LocationManager lm;
     public Location currentLocation = null;
+
+    public String getSessionId()
+    {
+        return sessionId;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,7 +112,8 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_gallery) {
             fragment = MapFragment.newInstance();
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_debug) {
+            fragment = DebugFragment.newInstance();
 
         } else if (id == R.id.nav_share) {
 
