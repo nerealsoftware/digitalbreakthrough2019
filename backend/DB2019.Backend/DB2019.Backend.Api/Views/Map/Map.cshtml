@@ -1,0 +1,104 @@
+﻿@{
+    ViewBag.Title = "Карта";
+}
+
+<script src="https://api-maps.yandex.ru/2.1?apikey=692802ea-2751-40e1-812e-da1435c677b2&load=package.full&lang=ru_RU">
+</script>
+<script src="~/Scripts/jquery-3.4.1.min.js">
+</script>
+<script type="text/javascript">
+    debugger;
+    var myMap;
+    var myPlaymarkCollection;
+    function AddPointsToMap(data) {
+        for (var index in data) {
+            var item = data[index];
+            var itemPreset = 'islands#blueIcon';                            //в работе - синяя
+            if (item.StateCode == 'NEW') itemPreset = 'islands#redIcon';    //новая - красная
+            if (item.StateCode == 'PROC') itemPreset = 'islands#greenIcon'; //решена - зеленая
+            myPlaymarkCollection = new ymaps.GeoObjectCollection();
+            var myPlacemark = new ymaps.Placemark([item.Coordinate.Latitude, item.Coordinate.Lontitude], {
+                hintContent: item.Hint,
+                balloonContent: item.Description
+                //balloonContentHeader: 'Однажды',
+                //balloonContentBody: 'В студеную зимнюю пору',
+                //balloonContentFooter: 'Мы пошли в гору',
+            }, {
+                    preset: itemPreset
+                });
+            // Размещение геообъекта на карте.
+            myPlaymarkCollection.add(myPlacemark);
+            myMap.geoObjects.add(myPlacemark);
+        }
+        //myMap.geoObjects.add(myPlaymarkCollection);
+        // myMap.setBounds(myPlaymarkCollection.getBounds());
+    };
+
+    ymaps.ready(function () {
+        debugger;
+        myMap = new ymaps.Map("YMapsID", {
+            center: [58.604, 49.640],   //широта, потом долгота
+            zoom: 13
+        });
+        GetDataFromServer({ filter: '' }, AddPointsToMap);
+    });
+
+    function GetDataFromServer(filter, callback) {
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("GetData","Map")",
+            data: JSON.stringify(filter),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                if (response) {
+                    //var json = $.parseJSON(response);
+                    callback(response);
+                    return;
+                }
+                else {
+                    console.log('error');
+                }
+            },
+            failure: function (response) {
+                console.log('error');
+            }
+        });
+    };
+
+    function ClearMap() {
+        myMap.geoObjects.removeAll();
+        //myPlaymarkCollection.removeAll();
+    };
+
+    refreshMap = function (state) {
+        var filter = { filter: state };
+        GetDataFromServer(filter, function (data) {
+            ClearMap();
+            AddPointsToMap(data)
+        });
+    };
+
+</script>
+
+<h2>Карта обращений</h2>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <p>
+            <select class="form-control" onchange="refreshMap(state=this.value)" style="width:200px;" name="states">
+                <option selected value="ALL">Все</option>
+                <option value="NEW">Новые</option>
+                <option value="PROCESS">В работе</option>
+                <option value="PROC">Решены</option>
+            </select>
+        </p>
+        <div>
+        </div>
+    </form>
+    <div id="YMapsID" style="width: 850px; height: 650px;"></div>
+</body>
+</html>
