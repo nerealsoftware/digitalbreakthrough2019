@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace DB2019.Backend.Api.Models
 {
@@ -8,10 +9,16 @@ namespace DB2019.Backend.Api.Models
     public class NewIssueData
     {
         /// <summary>
-        ///     Категория заявки
+        ///     Идентификатор категории заявки
         /// </summary>
         [Required]
-        public string Category { get; set; }
+        public int CategoryId { get; set; }
+
+        /// <summary>
+        ///     Гео-позиция пользователя
+        /// </summary>
+        [Required]
+        public GeoCoordinates Position { get; set; }
 
         /// <summary>
         ///     Фотография к заявке, в base64 формате
@@ -25,9 +32,8 @@ namespace DB2019.Backend.Api.Models
         public string Comment { get; set; }
 
         /// <summary>
-        ///     Гео-позиция пользователя
+        ///     Список идентификаторов меток
         /// </summary>
-        [Required]
-        public GeoCoordinates Position { get; set; }
+        public List<int> Tags { get; set; }
     }
 }

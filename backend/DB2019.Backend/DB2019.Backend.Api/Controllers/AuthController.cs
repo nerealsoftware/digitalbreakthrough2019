@@ -9,6 +9,7 @@ namespace DB2019.Backend.Api.Controllers
     /// <summary>
     ///     Авторизация пользователей
     /// </summary>
+    [Route("api/auth")]
     public class AuthController : ApiController
     {
         /// <summary>
