@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
+import android.location.Location;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
@@ -29,6 +30,8 @@ public class InputFragment extends Fragment {
     private TextView comment;
     private Button sendButton;
 
+    private TextView coordinates;
+
     public static InputFragment newInstance() {
         return new InputFragment();
     }
@@ -46,6 +49,8 @@ public class InputFragment extends Fragment {
 
         sendButton = rootView.findViewById(R.id.buttonSend);
         sendButton.getBackground().setColorFilter(getResources().getColor(R.color.colorAccent), PorterDuff.Mode.MULTIPLY);
+
+        coordinates = rootView.findViewById(R.id.tvCoordinates);
 
         return rootView;
     }
@@ -75,6 +80,15 @@ public class InputFragment extends Fragment {
                 }
             }
         });
+
+        // определение координат (отладка)
+        Location location = ((MainActivity)context).currentLocation;
+        if (location == null) {
+            coordinates.setText("местоположение не определилось");
+        }
+        else {
+            coordinates.setText(String.format("широта: %s долгота: %s", location.getLatitude(), location.getLongitude()));
+        }
     }
 
     @Override

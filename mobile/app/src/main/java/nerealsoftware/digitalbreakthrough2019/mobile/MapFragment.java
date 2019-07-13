@@ -1,5 +1,6 @@
 package nerealsoftware.digitalbreakthrough2019.mobile;
 
+import android.location.Location;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,6 +44,16 @@ public class MapFragment extends Fragment {
 
         // координаты корпуса политеха по-умолчанию
         GeoPoint startPoint = new GeoPoint(58.605663, 49.671116);
+
+        // определенное местоположение (если успешно)
+        Location location = ((MainActivity)getActivity()).currentLocation;
+        if (location != null) {
+            startPoint.setLatitude(location.getLatitude());
+            startPoint.setLongitude(location.getLongitude());
+            //startPoint.setAltitude(location.getAltitude());
+        }
+
+
         mapController.setCenter(startPoint);
 
         Marker m = new Marker(map);

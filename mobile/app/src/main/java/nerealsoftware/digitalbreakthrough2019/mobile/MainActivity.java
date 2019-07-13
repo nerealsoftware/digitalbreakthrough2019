@@ -1,12 +1,18 @@
 package nerealsoftware.digitalbreakthrough2019.mobile;
 
 import android.Manifest;
+import android.content.Context;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 
+import android.os.Debug;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
@@ -19,11 +25,16 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import android.view.Menu;
+import android.widget.Toast;
 
 import org.osmdroid.config.Configuration;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener,
+        LocationListener {
+
+    private LocationManager lm;
+    public Location currentLocation = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,4 +119,55 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        try {
+            lm.removeUpdates(this);
+        }
+        catch (Exception ex){}
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+        try {
+            //this fails on AVD 19s, even with the appcompat check, says no provided named gps is available
+            lm.requestLocationUpdates(LocationManager.GPS_PROVIDER,0l,0f,this);
+        }
+        catch (Exception ex) {
+            Log.w("NEREAL_GPS", "requestLocationUpdates GPS_PROVIDER failed with " + ex.getMessage());
+        }
+
+
+        try {
+            lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,0l,0f,this);
+        }
+        catch (Exception ex) {
+            Log.w("NEREAL_GPS", "requestLocationUpdates NETWORK_PROVIDER failed with " + ex.getMessage());
+        }
+    }
+    @Override
+    public void onLocationChanged(Location location) {
+        currentLocation = location;
+        Toast.makeText(this, "определено местоположение: " + currentLocation.getLatitude() + " " + currentLocation.getLongitude(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onStatusChanged(String s, int i, Bundle bundle) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String s) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String s) {
+
+    }
+
 }
