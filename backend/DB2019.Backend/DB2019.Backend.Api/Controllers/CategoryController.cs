@@ -19,9 +19,14 @@ namespace DB2019.Backend.Api.Controllers
         /// <returns></returns>
         public List<CategoryData> Get()
         {
+            return InternalCategoryList();
+        }
+
+        internal static List<CategoryData> InternalCategoryList()
+        {
             using (var db = new Db2019DbContext())
             {
-                var categories = db.Categories.OrderBy(c=>c.Id).ToList();
+                var categories = db.Categories.OrderBy(c => c.Id).ToList();
                 return categories.Select(Convert).ToList();
             }
         }

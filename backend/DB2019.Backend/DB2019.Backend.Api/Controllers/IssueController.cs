@@ -11,7 +11,7 @@ namespace DB2019.Backend.Api.Controllers
     /// <summary>
     ///     Заявки
     /// </summary>
-    [Route("api/issue")]
+    [System.Web.Http.Route("api/issue")]
     public class IssueController : ApiController
     {
         /// <summary>
