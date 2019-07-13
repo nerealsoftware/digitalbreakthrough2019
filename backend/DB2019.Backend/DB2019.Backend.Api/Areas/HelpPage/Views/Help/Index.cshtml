@@ -1,4 +1,4 @@
-@using System.Web.Http
+п»ї@using System.Web.Http
 @using System.Web.Http.Controllers
 @using System.Web.Http.Description
 @using System.Collections.ObjectModel
@@ -6,7 +6,7 @@
 @model Collection<ApiDescription>
 
 @{
-    ViewBag.Title = "Помощь по API для проекта к Цифровому Прорыву 2019";
+    ViewBag.Title = "РџРѕРјРѕС‰СЊ РїРѕ API РґР»СЏ РїСЂРѕРµРєС‚Р° Рє Р¦РёС„СЂРѕРІРѕРјСѓ РџСЂРѕСЂС‹РІСѓ 2019";
 
     // Group APIs by controller
     ILookup<HttpControllerDescriptor, ApiDescription> apiGroups = Model.ToLookup(api => api.ActionDescriptor.ControllerDescriptor);
