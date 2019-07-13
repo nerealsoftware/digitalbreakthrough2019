@@ -481,6 +481,18 @@
             </summary>
             <param name="documentPath">The physical path to XML document.</param>
         </member>
+        <member name="T:DB2019.Backend.Api.Controllers.AuthController">
+            <summary>
+                Авторизация пользователей
+            </summary>
+        </member>
+        <member name="M:DB2019.Backend.Api.Controllers.AuthController.Get(System.String)">
+            <summary>
+                Получить сессию пользователя по идентификатору устройства
+            </summary>
+            <param name="deviceId">Идентификатор устройства</param>
+            <returns></returns>
+        </member>
         <member name="T:DB2019.Backend.Api.Controllers.IssuesController">
             <summary>
             Заявки
