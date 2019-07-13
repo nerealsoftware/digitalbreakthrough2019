@@ -491,7 +491,7 @@
                 Получить сессию пользователя по идентификатору устройства
             </summary>
             <param name="deviceId">Идентификатор устройства</param>
-            <returns></returns>
+            <returns>Сессия пользователя</returns>
         </member>
         <member name="T:DB2019.Backend.Api.Controllers.IssuesController">
             <summary>
@@ -505,24 +505,44 @@
             <param name="sessionId">Сессия пользователя</param>
             <param name="data">Параметры новой заявки</param>
         </member>
+        <member name="T:DB2019.Backend.Api.Models.GeoCoordinates">
+            <summary>
+                Гео-координаты
+            </summary>
+        </member>
+        <member name="P:DB2019.Backend.Api.Models.GeoCoordinates.Latitude">
+            <summary>
+                Широта
+            </summary>
+        </member>
+        <member name="P:DB2019.Backend.Api.Models.GeoCoordinates.Longitude">
+            <summary>
+                Долгота
+            </summary>
+        </member>
         <member name="T:DB2019.Backend.Api.Models.NewIssueData">
             <summary>
-            Параметры новой заявки
+                Параметры новой заявки
             </summary>
         </member>
         <member name="P:DB2019.Backend.Api.Models.NewIssueData.Category">
             <summary>
-            Категория заявки
+                Категория заявки
             </summary>
         </member>
         <member name="P:DB2019.Backend.Api.Models.NewIssueData.Photo">
             <summary>
-            Фотография к заявке, в base64 формате
+                Фотография к заявке, в base64 формате
             </summary>
         </member>
         <member name="P:DB2019.Backend.Api.Models.NewIssueData.Comment">
             <summary>
-            Необязательный комментарий к заявке
+                Необязательный комментарий к заявке
+            </summary>
+        </member>
+        <member name="P:DB2019.Backend.Api.Models.NewIssueData.Position">
+            <summary>
+                Гео-позиция пользователя
             </summary>
         </member>
     </members>
