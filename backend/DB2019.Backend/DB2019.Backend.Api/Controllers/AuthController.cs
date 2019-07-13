@@ -17,7 +17,7 @@ namespace DB2019.Backend.Api.Controllers
         /// </summary>
         /// <param name="deviceId">Идентификатор устройства</param>
         /// <returns>Сессия пользователя</returns>
-        public string Get(string deviceId)
+        public Guid Get(string deviceId)
         {
             using (var db = new Db2019DbContext())
             {
@@ -37,7 +37,7 @@ namespace DB2019.Backend.Api.Controllers
 
                 db.SaveChanges();
 
-                return user.SessionId.GetValueOrDefault().ToString();
+                return user.SessionId.GetValueOrDefault();
             }
         }
     }
