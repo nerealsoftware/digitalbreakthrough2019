@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Web.Http;
 using System.Web.Http.Results;
 using DB2019.Backend.Api.Models;
@@ -37,7 +39,7 @@ namespace DB2019.Backend.Api.Controllers
                 byte[] photo = null;
                 try
                 {
-                    photo = Convert.FromBase64String(data.Photo);
+                    photo = System.Convert.FromBase64String(data.Photo);
                 }
                 catch
                 {
@@ -67,6 +69,44 @@ namespace DB2019.Backend.Api.Controllers
 
                 return new OkResult(this);
             }
+        }
+
+        /// <summary>
+        /// Получить список заявок
+        /// </summary>
+        /// <param name="categoryId">Идентификатор категории</param>
+        /// <param name="framePosition">Номер первого элемента</param>
+        /// <param name="frameSize">Количество запрашиваемых элементов</param>
+        /// <returns></returns>
+        public Frame<IssueData> Get(int framePosition, int frameSize, int? categoryId = null)
+        {
+            using (var db = new Db2019DbContext())
+            {
+                var query = db.Issues.Include(i => i.Tags);
+                if (categoryId.HasValue) query = query.Where(i => i.CategoryId == categoryId.Value);
+
+                var issues = query.Skip(framePosition).Take(frameSize).ToList();
+                return new Frame<IssueData>
+                {
+                    Data = issues.Select(Convert).ToList(),
+                    TotalCount = query.Count()
+                };
+            }
+        }
+
+        private static IssueData Convert(Issue issue)
+        {
+            return new IssueData
+            {
+                Id = issue.Id,
+                UserId = issue.UserId,
+                CategoryId = issue.CategoryId,
+                Position = new GeoCoordinates {Latitude = issue.Latitude, Longitude = issue.Longitude},
+                Photo = System.Convert.ToBase64String(issue.Photo),
+                Comment = issue.Comment,
+                Tags = issue.Tags.Count > 0 ? issue.Tags.Select(t => t.Id).ToList() : null,
+                CreatedTime = issue.CreatedTime
+            };
         }
     }
 }
