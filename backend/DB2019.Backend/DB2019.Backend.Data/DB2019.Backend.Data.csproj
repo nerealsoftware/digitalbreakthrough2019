@@ -49,10 +49,28 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Db2019DbContext.cs" />
+    <Compile Include="Entities\Category.cs" />
+    <Compile Include="Entities\Tag.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Migrations\201907131551323_User.cs" />
     <Compile Include="Migrations\201907131551323_User.Designer.cs">
       <DependentUpon>201907131551323_User.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907131744326_Category.cs" />
+    <Compile Include="Migrations\201907131744326_Category.Designer.cs">
+      <DependentUpon>201907131744326_Category.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907131747018_Category1.cs" />
+    <Compile Include="Migrations\201907131747018_Category1.Designer.cs">
+      <DependentUpon>201907131747018_Category1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907131807531_FillCategory.cs" />
+    <Compile Include="Migrations\201907131807531_FillCategory.Designer.cs">
+      <DependentUpon>201907131807531_FillCategory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907131826063_FillTags.cs" />
+    <Compile Include="Migrations\201907131826063_FillTags.Designer.cs">
+      <DependentUpon>201907131826063_FillTags.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -64,6 +82,18 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201907131551323_User.resx">
       <DependentUpon>201907131551323_User.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907131744326_Category.resx">
+      <DependentUpon>201907131744326_Category.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907131747018_Category1.resx">
+      <DependentUpon>201907131747018_Category1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907131807531_FillCategory.resx">
+      <DependentUpon>201907131807531_FillCategory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907131826063_FillTags.resx">
+      <DependentUpon>201907131826063_FillTags.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
