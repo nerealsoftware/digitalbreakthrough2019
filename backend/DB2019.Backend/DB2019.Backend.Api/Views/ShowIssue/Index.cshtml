@@ -1,0 +1,10 @@
+﻿@model List<DB2019.Backend.Api.Models.CategoryData>
+
+@{
+    ViewBag.Title = "Категории обращений";
+}
+
+@foreach (var item in Model)
+{
+    <h2>@item.Name</h2>
+}

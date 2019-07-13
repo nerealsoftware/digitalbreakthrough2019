@@ -22,7 +22,7 @@ namespace DB2019.Backend.Api.Controllers
             return InternalCategoryList();
         }
 
-        internal static List<CategoryData> InternalCategoryList()
+        public static List<CategoryData> InternalCategoryList()
         {
             using (var db = new Db2019DbContext())
             {

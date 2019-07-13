@@ -1,8 +1,11 @@
-﻿<!DOCTYPE html>
+﻿@using DB2019.Backend.Api.Controllers
+@using DB2019.Backend.Api.Helpers
+@using DB2019.Backend.Api.Models
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>@ViewBag.Title</title>
+    <title>@ViewBag.SiteTitle - @ViewBag.Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="@Url.Content("~/css/w3.css")">
     <link rel="stylesheet" href="@Url.Content("~/css/font-awesome.min.css")">
@@ -28,7 +31,7 @@
             <div class="w3-col">
 
                 <div class="w3-container w3-teal w3-border-top">
-                    <h1>Nereal ЖКХ</h1>
+                    <h1>@ViewBag.Title</h1>
                 </div>
 
                 <div class="w3-bar w3-black w3-large">
@@ -37,13 +40,10 @@
                     <div class="w3-dropdown-hover w3-center">
                         <button class="w3-button w3-mobile w3-center">Обращения по категориям</button>
                         <div class="w3-dropdown-content w3-bar-block w3-card-4 w3-light-grey">
-                            <a href="#" class="w3-bar-item w3-button w3-mobile">Дороги</a>
-                            <a href="#" class="w3-bar-item w3-button w3-mobile">Тротуары</a>
-                            <a href="#" class="w3-bar-item w3-button w3-mobile">Ямы</a>
-                            <a href="#" class="w3-bar-item w3-button w3-mobile">Мусор</a>
-                            <a href="#" class="w3-bar-item w3-button w3-mobile">Транспорт</a>
-                            <a href="#" class="w3-bar-item w3-button w3-mobile">Отопление</a>
-                            <a href="#" class="w3-bar-item w3-button w3-mobile">Образование детей</a>
+                            @foreach (var category in LayoutHelper.GetCategories())
+                            {
+                                <a href="#" class="w3-bar-item w3-button w3-mobile">@(category.Name ?? "- Не задана -")</a>
+                            }
                         </div>
                     </div>
                     <a href="#" class="w3-bar-item w3-button w3-mobile">О проекте</a>

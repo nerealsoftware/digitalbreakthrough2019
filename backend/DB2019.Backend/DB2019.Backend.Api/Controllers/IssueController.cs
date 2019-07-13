@@ -80,6 +80,11 @@ namespace DB2019.Backend.Api.Controllers
         /// <returns></returns>
         public Frame<IssueData> Get(int framePosition, int frameSize, int? categoryId = null)
         {
+            return InternalGetIssues(framePosition, frameSize, categoryId);
+        }
+
+        internal static Frame<IssueData> InternalGetIssues(int framePosition, int frameSize, int? categoryId)
+        {
             using (var db = new Db2019DbContext())
             {
                 var query = db.Issues.Include(i => i.Tags);
