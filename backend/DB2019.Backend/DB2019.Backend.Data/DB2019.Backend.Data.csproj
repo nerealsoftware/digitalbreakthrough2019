@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="Db2019DbContext.cs" />
     <Compile Include="Entities\Category.cs" />
+    <Compile Include="Entities\Issue.cs" />
     <Compile Include="Entities\Tag.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Migrations\201907131551323_User.cs" />
@@ -71,6 +72,10 @@
     <Compile Include="Migrations\201907131826063_FillTags.cs" />
     <Compile Include="Migrations\201907131826063_FillTags.Designer.cs">
       <DependentUpon>201907131826063_FillTags.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907132011242_AddIssue.cs" />
+    <Compile Include="Migrations\201907132011242_AddIssue.Designer.cs">
+      <DependentUpon>201907132011242_AddIssue.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -94,6 +99,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201907131826063_FillTags.resx">
       <DependentUpon>201907131826063_FillTags.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907132011242_AddIssue.resx">
+      <DependentUpon>201907132011242_AddIssue.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

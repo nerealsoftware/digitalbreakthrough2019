@@ -16,5 +16,16 @@ namespace DB2019.Backend.Data
         public DbSet<User> Users { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Tag> Tags { get; set; }
+        public DbSet<Issue> Issues { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Issue>().HasMany(i => i.Tags).WithMany(t => t.Issues).Map(m =>
+            {
+                m.MapLeftKey("IssueId");
+                m.MapRightKey("TagId");
+            });
+        }
     }
 }
