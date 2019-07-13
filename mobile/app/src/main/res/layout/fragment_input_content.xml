@@ -21,8 +21,20 @@
     <Spinner
         android:id="@+id/spinnerCategory"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <co.lujun.androidtagview.TagContainerLayout
+        android:id="@+id/tagsLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        />
+        android:layout_margin="5dp"
+        android:padding="10dp"
+        app:container_enable_drag="true"
+        app:container_max_lines="1"
+        app:tag_corner_radius="5dp"
+        app:tag_selectable="true"
+        app:tag_clickable="true"
+        app:tag_theme="none"/>
 
     <TextView
         android:id="@+id/tvPhoto"

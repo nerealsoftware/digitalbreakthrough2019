@@ -19,12 +19,17 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+import co.lujun.androidtagview.TagContainerLayout;
+import co.lujun.androidtagview.TagView;
+
 public class InputFragment extends Fragment {
     private static final String TAG = "InputFragment";
     private static final int REQUEST_IMAGE_CAPTURE = 1;
 
 
     private Spinner categories;
+    private TagContainerLayout tags;
+
     private ImageView photo;
     private Button photoButton;
     private TextView comment;
@@ -41,6 +46,7 @@ public class InputFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_input_content, container, false);
 
         categories = rootView.findViewById(R.id.spinnerCategory);
+        tags = rootView.findViewById(R.id.tagsLayout);
 
         photo = rootView.findViewById(R.id.photo);
         photoButton = rootView.findViewById(R.id.buttonPhoto);
@@ -70,6 +76,31 @@ public class InputFragment extends Fragment {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         categories.setAdapter(adapter);
 
+        tags.setTags(new String[] {
+                "яма", "открытый люк", "большая лужа",
+        });
+        tags.setOnTagClickListener(new TagView.OnTagClickListener() {
+
+            @Override
+            public void onTagClick(int position, String text) {
+                tags.getTagView(position).setTagBackgroundColor(getResources().getColor(R.color.colorAccent));
+            }
+
+            @Override
+            public void onTagLongClick(final int position, String text) {
+            }
+
+            @Override
+            public void onSelectedTagDrag(int position, String text) {
+
+            }
+
+            @Override
+            public void onTagCrossClick(int position) {
+            }
+        });
+
+
         // прикрепление фотки
         photoButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,6 +119,20 @@ public class InputFragment extends Fragment {
         }
         else {
             coordinates.setText(String.format("широта: %s долгота: %s", location.getLatitude(), location.getLongitude()));
+        }
+    }
+
+    private void setTagSelectedColor(int position) {
+        for (int i = 0; i < tags.getTags().size(); i++) {
+            TagView tag = tags.getTagView(i);
+            if (i == position) {
+                tag.setTagBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                tag.setTagTextColor(getResources().getColor(R.color.colorAccent));
+            } else {
+                tag.setTagBackgroundColor(getResources().getColor(R.color.colorAccent));
+                tag.setTagTextColor(getResources().getColor(R.color.colorPrimary));
+            }
+            tag.invalidate();
         }
     }
 
