@@ -534,6 +534,15 @@
             <param name="sessionId">Сессия пользователя</param>
             <param name="data">Параметры новой заявки</param>
         </member>
+        <member name="M:DB2019.Backend.Api.Controllers.IssueController.Get(System.Int32,System.Int32,System.Nullable{System.Int32})">
+            <summary>
+            Получить список заявок
+            </summary>
+            <param name="categoryId">Идентификатор категории</param>
+            <param name="framePosition">Номер первого элемента</param>
+            <param name="frameSize">Количество запрашиваемых элементов</param>
+            <returns></returns>
+        </member>
         <member name="T:DB2019.Backend.Api.Models.CategoryData">
             <summary>
                 Категория
@@ -549,6 +558,22 @@
                 Название категории
             </summary>
         </member>
+        <member name="T:DB2019.Backend.Api.Models.Frame`1">
+            <summary>
+            Страница данных
+            </summary>
+            <typeparam name="T">Тип данных</typeparam>
+        </member>
+        <member name="P:DB2019.Backend.Api.Models.Frame`1.Data">
+            <summary>
+            Данные
+            </summary>
+        </member>
+        <member name="P:DB2019.Backend.Api.Models.Frame`1.TotalCount">
+            <summary>
+            Общее количество
+            </summary>
+        </member>
         <member name="T:DB2019.Backend.Api.Models.GeoCoordinates">
             <summary>
                 Гео-координаты
@@ -562,6 +587,51 @@
         <member name="P:DB2019.Backend.Api.Models.GeoCoordinates.Longitude">
             <summary>
                 Долгота
+            </summary>
+        </member>
+        <member name="T:DB2019.Backend.Api.Models.IssueData">
+            <summary>
+                Данные заявки
+            </summary>
+        </member>
+        <member name="P:DB2019.Backend.Api.Models.IssueData.Id">
+            <summary>
+                Идентификатор заявки
+            </summary>
+        </member>
+        <member name="P:DB2019.Backend.Api.Models.IssueData.UserId">
+            <summary>
+                Идентификатор пользователя
+            </summary>
+        </member>
+        <member name="P:DB2019.Backend.Api.Models.IssueData.CategoryId">
+            <summary>
+                Идентификатор категории заявки
+            </summary>
+        </member>
+        <member name="P:DB2019.Backend.Api.Models.IssueData.Position">
+            <summary>
+                Гео-позиция пользователя
+            </summary>
+        </member>
+        <member name="P:DB2019.Backend.Api.Models.IssueData.Photo">
+            <summary>
+                Фотография к заявке, в base64 формате
+            </summary>
+        </member>
+        <member name="P:DB2019.Backend.Api.Models.IssueData.Comment">
+            <summary>
+                Необязательный комментарий к заявке
+            </summary>
+        </member>
+        <member name="P:DB2019.Backend.Api.Models.IssueData.Tags">
+            <summary>
+                Список идентификаторов меток
+            </summary>
+        </member>
+        <member name="P:DB2019.Backend.Api.Models.IssueData.CreatedTime">
+            <summary>
+                Время создания заявки
             </summary>
         </member>
         <member name="T:DB2019.Backend.Api.Models.NewIssueData">
