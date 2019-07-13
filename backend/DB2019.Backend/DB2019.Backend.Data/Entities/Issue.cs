@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -23,5 +24,6 @@ namespace DB2019.Backend.Data.Entities
         public byte[] Photo { get; set; }
         public string Comment { get; set; }
         public virtual ICollection<Tag> Tags { get; set; }
+        public DateTime CreatedTime { get; set; }
     }
 }

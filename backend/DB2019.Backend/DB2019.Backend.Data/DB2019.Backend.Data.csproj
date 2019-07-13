@@ -77,6 +77,10 @@
     <Compile Include="Migrations\201907132011242_AddIssue.Designer.cs">
       <DependentUpon>201907132011242_AddIssue.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201907132113360_AddIssueCreatedTime.cs" />
+    <Compile Include="Migrations\201907132113360_AddIssueCreatedTime.Designer.cs">
+      <DependentUpon>201907132113360_AddIssueCreatedTime.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -102,6 +106,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201907132011242_AddIssue.resx">
       <DependentUpon>201907132011242_AddIssue.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907132113360_AddIssueCreatedTime.resx">
+      <DependentUpon>201907132113360_AddIssueCreatedTime.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

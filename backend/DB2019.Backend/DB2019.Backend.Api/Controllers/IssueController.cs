@@ -61,7 +61,7 @@ namespace DB2019.Backend.Api.Controllers
                     foreach (var tag in tags)
                         issue.Tags.Add(tag);
 
-                ;
+                issue.CreatedTime = DateTime.Now;
                 db.Issues.Add(issue);
                 db.SaveChanges();
 
