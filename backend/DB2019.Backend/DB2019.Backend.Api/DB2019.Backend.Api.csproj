@@ -173,7 +173,9 @@
     </Compile>
     <Compile Include="Helpers\NLogExceptionLogger.cs" />
     <Compile Include="Models\CategoryData.cs" />
+    <Compile Include="Models\Frame.cs" />
     <Compile Include="Models\GeoCoordinates.cs" />
+    <Compile Include="Models\IssueData.cs" />
     <Compile Include="Models\NewIssueData.cs" />
     <Compile Include="Models\TagData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
