@@ -94,7 +94,7 @@ namespace DB2019.Backend.Api.Controllers
             }
         }
 
-        private IssueData Convert(Issue issue)
+        private static IssueData Convert(Issue issue)
         {
             return new IssueData
             {
