@@ -30,7 +30,6 @@
         android:layout_margin="5dp"
         android:padding="10dp"
         app:container_enable_drag="true"
-        app:container_max_lines="1"
         app:tag_corner_radius="5dp"
         app:tag_selectable="true"
         app:tag_clickable="true"
@@ -47,7 +46,8 @@
         android:id="@+id/photo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@mipmap/stub"/>
+        android:src="@mipmap/stub"
+        android:scaleType="center"/>
 
     <Button
         android:id="@+id/buttonPhoto"
