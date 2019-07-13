@@ -9,6 +9,9 @@ import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 public interface ServerApi {
+    @GET("auth")
+    Call<String> getSession(@Query("deviceId") String deviceId);
+
     @GET("category")
     Call<List<Category>> getCategories();
 

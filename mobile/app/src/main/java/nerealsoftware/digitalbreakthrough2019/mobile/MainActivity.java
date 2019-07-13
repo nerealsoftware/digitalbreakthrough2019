@@ -11,6 +11,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 
+import android.provider.Settings;
 import android.util.Log;
 import android.view.MenuItem;
 
@@ -31,6 +32,9 @@ import org.osmdroid.config.Configuration;
 import nerealsoftware.digitalbreakthrough2019.mobile.fragments.DebugFragment;
 import nerealsoftware.digitalbreakthrough2019.mobile.fragments.InputFragment;
 import nerealsoftware.digitalbreakthrough2019.mobile.fragments.MapFragment;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
@@ -65,6 +69,21 @@ public class MainActivity extends AppCompatActivity
         Configuration.getInstance().setUserAgentValue(BuildConfig.APPLICATION_ID);
         ActivityCompat.requestPermissions(MainActivity.this,
                 new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+
+        // получить сессию сервера
+        String android_id = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+        NetworkService.getInstance().api().getSession(android_id).enqueue(new Callback<String>() {
+
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                sessionId = response.body();
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                Toast.makeText(MainActivity.this, "Ошибка при получении сессии: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
