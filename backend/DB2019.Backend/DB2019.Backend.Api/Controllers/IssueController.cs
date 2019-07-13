@@ -6,7 +6,8 @@ namespace DB2019.Backend.Api.Controllers
     /// <summary>
     /// Заявки
     /// </summary>
-    public class IssuesController : ApiController
+    [Route("api/issue")]
+    public class IssueController : ApiController
     {
         /// <summary>
         ///     Добавить новую заявку

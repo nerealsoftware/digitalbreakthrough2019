@@ -493,17 +493,61 @@
             <param name="deviceId">Идентификатор устройства</param>
             <returns>Сессия пользователя</returns>
         </member>
-        <member name="T:DB2019.Backend.Api.Controllers.IssuesController">
+        <member name="T:DB2019.Backend.Api.Controllers.TagController">
+            <summary>
+                Метки
+            </summary>
+        </member>
+        <member name="M:DB2019.Backend.Api.Controllers.TagController.Get">
+            <summary>
+                Получить список всех меток
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DB2019.Backend.Api.Controllers.TagController.Get(System.Int32)">
+            <summary>
+                Получить список меток по категории
+            </summary>
+            <param name="categiryId">Идентификатор категории</param>
+            <returns></returns>
+        </member>
+        <member name="T:DB2019.Backend.Api.Controllers.CategoryController">
+            <summary>
+                Категории
+            </summary>
+        </member>
+        <member name="M:DB2019.Backend.Api.Controllers.CategoryController.Get">
+            <summary>
+                Получить список всех категорий
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:DB2019.Backend.Api.Controllers.IssueController">
             <summary>
             Заявки
             </summary>
         </member>
-        <member name="M:DB2019.Backend.Api.Controllers.IssuesController.Post(System.String,DB2019.Backend.Api.Models.NewIssueData)">
+        <member name="M:DB2019.Backend.Api.Controllers.IssueController.Post(System.String,DB2019.Backend.Api.Models.NewIssueData)">
             <summary>
                 Добавить новую заявку
             </summary>
             <param name="sessionId">Сессия пользователя</param>
             <param name="data">Параметры новой заявки</param>
+        </member>
+        <member name="T:DB2019.Backend.Api.Models.CategoryData">
+            <summary>
+                Категория
+            </summary>
+        </member>
+        <member name="P:DB2019.Backend.Api.Models.CategoryData.Id">
+            <summary>
+                Идентификатор категории
+            </summary>
+        </member>
+        <member name="P:DB2019.Backend.Api.Models.CategoryData.Name">
+            <summary>
+                Название категории
+            </summary>
         </member>
         <member name="T:DB2019.Backend.Api.Models.GeoCoordinates">
             <summary>
@@ -543,6 +587,26 @@
         <member name="P:DB2019.Backend.Api.Models.NewIssueData.Position">
             <summary>
                 Гео-позиция пользователя
+            </summary>
+        </member>
+        <member name="T:DB2019.Backend.Api.Models.TagData">
+            <summary>
+                Метка
+            </summary>
+        </member>
+        <member name="P:DB2019.Backend.Api.Models.TagData.Id">
+            <summary>
+                Идентификатор метки
+            </summary>
+        </member>
+        <member name="P:DB2019.Backend.Api.Models.TagData.CategoryId">
+            <summary>
+                Идентификатор категории
+            </summary>
+        </member>
+        <member name="P:DB2019.Backend.Api.Models.TagData.Name">
+            <summary>
+                Название метки
             </summary>
         </member>
     </members>
