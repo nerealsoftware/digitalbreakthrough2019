@@ -43,7 +43,7 @@ public class MapFragment extends Fragment {
         mapController.setZoom(15.0);
 
         // координаты корпуса политеха по-умолчанию
-        GeoPoint startPoint = new GeoPoint(58.605663, 49.671116);
+        GeoPoint startPoint = new GeoPoint(Const.DEF_LAT, Const.DEF_LON);
 
         // определенное местоположение (если успешно)
         Location location = ((MainActivity)getActivity()).currentLocation;
