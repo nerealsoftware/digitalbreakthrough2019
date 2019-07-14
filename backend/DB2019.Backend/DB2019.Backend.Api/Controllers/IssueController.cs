@@ -214,7 +214,7 @@ namespace DB2019.Backend.Api.Controllers
                     query = query.Where(
                         i => i.Latitude >= latitude - radius && i.Latitude <= latitude + radius &&
                              i.Longitude >= longitude - radius && i.Longitude <= longitude + radius );
-                query = query.OrderBy( i => i.Id );
+                query = query.OrderByDescending( i => i.CreatedTime );
                 if( frameSize >= 0 ) query = query.Skip( framePosition ).Take( frameSize );
 
                 var issues = query.ToList();
