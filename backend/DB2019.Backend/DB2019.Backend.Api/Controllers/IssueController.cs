@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -124,10 +125,19 @@ namespace DB2019.Backend.Api.Controllers
                 if (issue == null) throw new HttpException((int)HttpStatusCode.NotFound, "Issue not found");
 
                 var response = new HttpResponseMessage();
-                response.Content = new ByteArrayContent(issue.Photo);
+                response.Content = issue.Photo?.Length > 0
+                    ? new ByteArrayContent( issue.Photo )
+                    : GetStubPhotoContent();
                 response.Content.Headers.ContentType = new MediaTypeHeaderValue( "image/jpeg" );
                 return response;
             }
+        }
+
+        private static HttpContent GetStubPhotoContent()
+        {
+            var context = HttpContext.Current;
+            var path = context.Server.MapPath( "~/Images/samples/smp00.jpg" );
+            return new StreamContent( new FileStream( path, FileMode.Open ) );
         }
 
         /// <summary>
