@@ -83,16 +83,27 @@
 
 <div class="w3-container w3-margin-bottom">
     <form id="form1" runat="server">
-        <select class="form-control" onchange="refreshMap(state=this.value)" style="width:200px;" name="states">
-            <option selected value="ALL">Все</option>
-            <option value="NEW">Новые</option>
-            <option value="PROCESS">В работе</option>
-            <option value="PROC">Решены</option>
-        </select>
+        <table class="w3-container">
+            <tr>
+                <td>Статус обращения</td>
+                <td>
+                    <select class="form-control" onchange="refreshMap(state=this.value)" style="width:100%;" name="states">
+                        <option selected value="ALL">Все</option>
+                        <option value="NEW">Новые</option>
+                        <option value="PROCESS">В работе</option>
+                        <option value="PROC">Решены</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Категория</td>
+                <td><input type="text" style="width:100%;"></td>
+            </tr>
+        </table>
     </form>
 </div>
 
-<div class="w3-container w3-margin-bottom">
+<div class="w3-container w3-padding-bottom">
 
     <div id="YMapsID" style="width: 100%; height: 650px;"></div>
 

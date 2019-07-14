@@ -11,7 +11,7 @@
         <tr>
             <td colspan="2"><img src="~/Images/img_car.jpg" style="width: 100%;"></td>
         </tr>
-        
+
         @if (!string.IsNullOrEmpty(Model.Comment))
         {
             <tr>
@@ -23,6 +23,11 @@
         <tr>
             <td>Дата создания</td>
             <td>@Model.CreatedTime.ToString("yyyy-MM-dd hh:mm:ss")</td>
+        </tr>
+
+        <tr>
+            <td>Категория</td>
+            <td>@(Model.CategoryName ?? "- Не указана -")</td>
         </tr>
 
         <tr>

@@ -20,7 +20,7 @@ namespace DB2019.Backend.Api.Controllers
         }
 
         [HttpPost]
-        public string GetData2(string filter)
+        public string GetData(string filter)
         {
             List<Appeal> appeals = new List<Appeal>();
 
@@ -34,7 +34,7 @@ namespace DB2019.Backend.Api.Controllers
                     {
                         Coordinate = new Point(item.Latitude, item.Longitude),
                         Hint = item.Category.Name,
-                        Description = string.Format("<p><a href=\"{0}\">№ {0} От: {1}<br>{2}<br>{3}</a></p>", item.Id,
+                        Description = string.Format("<p><a href=\"{0}\">№ {1} От: {2}</a><br>{3}<br>{4}<br></p>", Url.Action("ById","ShowIssue",new { id = item.Id }),item.Id,
                             item.CreatedTime.ToString("yyyy.MM.dd"), item.Category.Name, item.Comment),
                         StateCode = index % 3 == 0 ? "PROC" : index % 3 == 1 ? "NEW" : "PROCESS"
                     });
@@ -51,7 +51,7 @@ namespace DB2019.Backend.Api.Controllers
         }
 
         [HttpPost]
-        public string GetData(string filter)
+        public string GetData2(string filter)
         {
             List<Appeal> appeals = new List<Appeal>();
             for (var i = 0; i < 10; i++)

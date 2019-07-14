@@ -87,7 +87,7 @@ namespace DB2019.Backend.Api.Controllers
         {
             using (var db = new Db2019DbContext())
             {
-                var issue = db.Issues.Include(i => i.Tags).FirstOrDefault(i => i.Id == issueId);
+                var issue = db.Issues.Include(i => i.Tags).Include(i=>i.Category).FirstOrDefault(i => i.Id == issueId);
                 return Convert(issue);
             }
         }
@@ -117,6 +117,7 @@ namespace DB2019.Backend.Api.Controllers
                 Id = issue.Id,
                 UserId = issue.UserId,
                 CategoryId = issue.CategoryId,
+                CategoryName = issue.Category?.Name,
                 Position = new GeoCoordinates {Latitude = issue.Latitude, Longitude = issue.Longitude},
                 Photo = issue.Photo == null || issue.Photo.Length == 0 ? "" : System.Convert.ToBase64String(issue.Photo),
                 Comment = issue.Comment,
