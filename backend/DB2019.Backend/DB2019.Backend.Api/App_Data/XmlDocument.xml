@@ -624,6 +624,11 @@
                 Идентификатор категории заявки
             </summary>
         </member>
+        <member name="P:DB2019.Backend.Api.Models.IssueData.CategoryName">
+            <summary>
+            Название категории
+            </summary>
+        </member>
         <member name="P:DB2019.Backend.Api.Models.IssueData.Position">
             <summary>
                 Гео-позиция пользователя

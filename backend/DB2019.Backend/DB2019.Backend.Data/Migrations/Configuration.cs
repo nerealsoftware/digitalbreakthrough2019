@@ -31,7 +31,9 @@ namespace DB2019.Backend.Data.Migrations
                     Comment = $"Автоматически сгенерированное обращение {index + 1}",
                     Latitude = 58.604 + (rnd.NextDouble() - 0.5) / 10,
                     Longitude = 49.640 + (rnd.NextDouble() - 0.5) / 10,
-                    CreatedTime = dt.AddSeconds(-rnd.NextDouble()*300)
+                    CreatedTime = dt.AddSeconds(-rnd.NextDouble() * 300),
+                    Status = (IssueStatus)(index % 3),
+                    Rating = rnd.Next(1,1000)
                 };
                 issues[index] = issue;
             }

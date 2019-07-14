@@ -11,7 +11,7 @@
         <tr>
             <td colspan="2"><img src="~/Images/img_car.jpg" style="width: 100%;"></td>
         </tr>
-        
+
         @if (!string.IsNullOrEmpty(Model.Comment))
         {
             <tr>
@@ -21,8 +21,18 @@
         }
 
         <tr>
+            <td>Статус</td>
+            <td>@(DB2019.Backend.Api.Controllers.MapController.StatusNames[Model.Status])</td>
+        </tr>
+
+        <tr>
             <td>Дата создания</td>
             <td>@Model.CreatedTime.ToString("yyyy-MM-dd hh:mm:ss")</td>
+        </tr>
+
+        <tr>
+            <td>Категория</td>
+            <td>@(Model.CategoryName ?? "- Не указана -")</td>
         </tr>
 
         <tr>
@@ -33,6 +43,11 @@
         <tr>
             <td>Долгота</td>
             <td>@Model.Position.Longitude</td>
+        </tr>
+
+        <tr>
+            <td>Рейтинг</td>
+            <td>@Model.Rating</td>
         </tr>
 
     </table>

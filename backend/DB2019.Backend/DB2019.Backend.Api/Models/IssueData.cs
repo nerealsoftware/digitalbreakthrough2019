@@ -29,6 +29,11 @@ namespace DB2019.Backend.Api.Models
         public int CategoryId { get; set; }
 
         /// <summary>
+        /// Название категории
+        /// </summary>
+        public string CategoryName { get; set; }
+
+        /// <summary>
         ///     Гео-позиция пользователя
         /// </summary>
         public GeoCoordinates Position { get; set; }
