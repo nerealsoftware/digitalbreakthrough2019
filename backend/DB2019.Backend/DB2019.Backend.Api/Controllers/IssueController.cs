@@ -183,7 +183,7 @@ namespace DB2019.Backend.Api.Controllers
             int frameSize,
             double latitude,
             double longitude,
-            double radius )
+            double radius)
         {
             return null;
         }
@@ -197,19 +197,29 @@ namespace DB2019.Backend.Api.Controllers
             }
         }
 
-        internal static Frame<IssueData> InternalGetIssues(int framePosition, int frameSize, int? categoryId)
+        internal static Frame<IssueData> InternalGetIssues(
+            int framePosition,
+            int frameSize,
+            int? categoryId = null,
+            double? latitude = null,
+            double? longitude = null,
+            double? radius = null )
         {
-            using (var db = new Db2019DbContext())
-            {
-                var query = db.Issues.Include(i => i.Tags);
-                if (categoryId.HasValue) query = query.Where(i => i.CategoryId == categoryId.Value);
+            using( var db = new Db2019DbContext() ) {
+                var query = db.Issues.Include( i => i.Tags );
+                if( categoryId.HasValue ) query = query.Where( i => i.CategoryId == categoryId.Value );
+                if( latitude.HasValue &&
+                    longitude.HasValue &&
+                    radius.HasValue )
+                    query = query.Where(
+                        i => i.Latitude >= latitude - radius && i.Latitude <= latitude + radius &&
+                             i.Longitude >= longitude - radius && i.Longitude <= longitude + radius );
                 query = query.OrderBy( i => i.Id );
-                if (frameSize >= 0) query = query.Skip(framePosition).Take(frameSize);
+                if( frameSize >= 0 ) query = query.Skip( framePosition ).Take( frameSize );
 
                 var issues = query.ToList();
-                return new Frame<IssueData>
-                {
-                    Data = issues.Select(Convert).ToList(),
+                return new Frame<IssueData> {
+                    Data = issues.Select( Convert ).ToList(),
                     TotalCount = query.Count()
                 };
             }
@@ -226,7 +236,6 @@ namespace DB2019.Backend.Api.Controllers
                 CategoryId = issue.CategoryId,
                 CategoryName = issue.Category?.Name,
                 Position = new GeoCoordinates {Latitude = issue.Latitude, Longitude = issue.Longitude},
-                Photo = issue.Photo == null || issue.Photo.Length == 0 ? "" : System.Convert.ToBase64String(issue.Photo),
                 Comment = issue.Comment,
                 Tags = issue.Tags.Count > 0 ? issue.Tags.Select(t => t.Id).ToList() : null,
                 Status = issue.Status,
