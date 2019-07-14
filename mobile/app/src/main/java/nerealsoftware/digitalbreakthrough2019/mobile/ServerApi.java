@@ -19,8 +19,8 @@ public interface ServerApi {
     Call<List<Category>> getCategories();
 
     @GET("tag")
-    Call<List<Tag>> getTags(@Query("categiryId") int category);
+    Call<List<Tag>> getTags(@Query("categoryId") int category);
 
     @POST("issue")
-    Call<IssueData> getByLocation(@Query("sessionId") String session, @Body IssueData data);
+    Call<IssueData> addIssue(@Query("sessionId") String session, @Body IssueData data);
 }

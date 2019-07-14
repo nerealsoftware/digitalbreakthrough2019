@@ -9,6 +9,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,7 @@ import java.util.List;
 
 import co.lujun.androidtagview.TagContainerLayout;
 import co.lujun.androidtagview.TagView;
+import nerealsoftware.digitalbreakthrough2019.mobile.Const;
 import nerealsoftware.digitalbreakthrough2019.mobile.MainActivity;
 import nerealsoftware.digitalbreakthrough2019.mobile.NetworkService;
 import nerealsoftware.digitalbreakthrough2019.mobile.R;
@@ -194,15 +196,29 @@ public class InputFragment extends Fragment {
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 95, baos);
 
-                NetworkService.getInstance().api().getByLocation(sessionId,
-                        new IssueData(selectedCategory, baos.toByteArray(), comment.getText().toString())).enqueue(new Callback<IssueData>() {
+                // передача координат места отправки сообщения
+                double lat = Const.DEF_LAT;
+                double lon = Const.DEF_LON;
+                Location location = ((MainActivity)context).currentLocation;
+                if (location != null) {
+                    lat = location.getLatitude();
+                    lon = location.getLongitude();
+                }
+
+                NetworkService.getInstance().api().addIssue(sessionId,
+                        new IssueData(selectedCategory, baos.toByteArray(),
+                                lat, lon, comment.getText().toString()))
+                        .enqueue(new Callback<IssueData>() {
                     @Override
                     public void onResponse(Call<IssueData> call, Response<IssueData> response) {
+                        Log.d("NEREAL_POST", "response = " + response.raw().toString());
+
                         Toast.makeText(context, "хоба!", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onFailure(Call<IssueData> call, Throwable t) {
+                        Log.d("NEREAL_POST", "onFailure = " + t.getMessage());
                         Toast.makeText(context, "Ошибка при отправке обращения: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -223,7 +239,6 @@ public class InputFragment extends Fragment {
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             photo.setImageBitmap(imageBitmap);
         }
-
     }
 
 }

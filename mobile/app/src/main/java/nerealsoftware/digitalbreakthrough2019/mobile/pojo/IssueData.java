@@ -9,7 +9,11 @@ public class IssueData {
     @SerializedName("CategoryId")
     private int category;
 
-    // TODO: Position
+    @SerializedName("Latitude")
+    private double latitude;
+
+    @SerializedName("Longitude")
+    private double longitude;
 
     @SerializedName("Photo")
     private String photoDecoded;
@@ -17,12 +21,16 @@ public class IssueData {
     @SerializedName("Comment")
     private String comment;
 
-    //TODO: Tags;
+    //@SerializedName("Tags")
+    //private String tags;
 
-    public IssueData(int category, byte[] photo, String comment)
+    public IssueData(int category, byte[] photo, double lat, double lon, String comment)
     {
         this.category = category;
+        this.latitude = lat;
+        this.longitude = lon;
         this.photoDecoded = Base64.encodeToString(photo, Base64.DEFAULT);
         this.comment = comment;
+        //this.tags = "[1]";
     }
 }
