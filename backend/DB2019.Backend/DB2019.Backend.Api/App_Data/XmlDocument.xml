@@ -550,6 +550,13 @@
             <param name="issueId">Идентификатор заявки</param>
             <returns></returns>
         </member>
+        <member name="M:DB2019.Backend.Api.Controllers.IssueController.GetPhoto(System.Int32)">
+            <summary>
+            Получить фотографию заявки
+            </summary>
+            <param name="issueId">Идентификатор заявки</param>
+            <returns></returns>
+        </member>
         <member name="M:DB2019.Backend.Api.Controllers.IssueController.Vote(System.String,System.Int32)">
             <summary>
             Проголосовать за заявку

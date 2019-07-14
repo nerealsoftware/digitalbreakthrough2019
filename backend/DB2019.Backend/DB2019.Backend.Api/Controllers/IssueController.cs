@@ -2,6 +2,8 @@
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Web;
 using System.Web.Http;
 using DB2019.Backend.Api.Models;
@@ -106,6 +108,26 @@ namespace DB2019.Backend.Api.Controllers
             var issue = GetById( issueId );
             if (issue == null) throw new HttpException((int)HttpStatusCode.NotFound, "Issue not found");
             return issue;
+        }
+
+        /// <summary>
+        /// Получить фотографию заявки
+        /// </summary>
+        /// <param name="issueId">Идентификатор заявки</param>
+        /// <returns></returns>
+        [Route("api/issue/photo")]
+        public HttpResponseMessage GetPhoto(int issueId)
+        {
+            using (var db = new Db2019DbContext())
+            {
+                var issue = db.Issues.Include(i => i.Tags).FirstOrDefault(i => i.Id == issueId);
+                if (issue == null) throw new HttpException((int)HttpStatusCode.NotFound, "Issue not found");
+
+                var response = new HttpResponseMessage();
+                response.Content = new ByteArrayContent(issue.Photo);
+                response.Content.Headers.ContentType = new MediaTypeHeaderValue( "image/jpeg" );
+                return response;
+            }
         }
 
         /// <summary>
