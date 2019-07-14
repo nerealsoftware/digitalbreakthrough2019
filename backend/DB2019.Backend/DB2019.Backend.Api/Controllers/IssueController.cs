@@ -129,6 +129,16 @@ namespace DB2019.Backend.Api.Controllers
             }
         }
 
+        public Frame<IssueData> GetByPosition(
+            int framePosition,
+            int frameSize,
+            double latitude,
+            double longitude,
+            double radios )
+        {
+            return null;
+        }
+
         internal static IssueData GetById(int issueId)
         {
             using (var db = new Db2019DbContext())
