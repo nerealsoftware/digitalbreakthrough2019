@@ -15,26 +15,42 @@
             background-position: center left;
             min-height: 250px;
         }
+        .gorod-bg {
+            background: url('@Url.Content("~/Images/Logotip4.jpg")') no-repeat;
+            background-position: top left;
+            min-height: 100px;
+        }
+        .body-bg {
+            background: url('@Url.Content("~/Images/fon.jpg")') no-repeat;
+            background-position: top left;
+            min-height: 75px;
+        }
+        .footer-bg {
+            background: url('@Url.Content("~/Images/footer2.jpg")') no-repeat;
+            background-position: top left;
+            min-height: 75px;
+        }
     </style>
 
 </head>
 
-<body class="w3-light-grey">
+<body class="w3-light-grey body-bg">
 
-    <div class="w3-content w3-margin-top  w3-margin-bottom w3-card" style="max-width:1400px;">
+    <div class="w3-content w3-margin-top w3-margin-bottom w3-card" style="max-width:1400px;">
 
-        <div class="header-bg">
-        </div>
+        @*<div class="header-bg">
+        </div>*@
 
         <div class="w3-row">
 
             <div class="w3-col">
 
-                <div class="w3-container w3-teal w3-border-top">
-                    <h1>@ViewBag.SiteTitle</h1>
+                <div class="w3-row gorod-bg">
+                    @*<h1>@ViewBag.SiteTitle</h1>*@
+                    @*<img src="~/Images/Logotip2.jpg" style="width:100%;height:100%;">*@
                 </div>
 
-                <div class="w3-bar w3-black w3-large">
+                <div class="w3-bar w3-black">
                     @*<a href="#" class="w3-bar-item w3-button w3-mobile"><i class="fa fa-home"></i></a>*@
                     <a href="@Url.Action("Map","Map")" class="w3-bar-item w3-button w3-mobile">Карта обращений</a>
                     <div class="w3-dropdown-hover w3-center">
@@ -58,7 +74,7 @@
 
                     @RenderBody()
 
-                    <div class="w3-panel">
+                    <div class="w3-container">
                        &nbsp;
                     </div>
 
@@ -66,7 +82,7 @@
 
                 <div class="w3-container w3-teal">
                     <h5>@ViewBag.SiteTitle</h5>
-                    <p class="w3-small">Обращайтесь к нам, и ваши волосы станут мягкими и шелковистыми! (ц) 2019</p>
+                    <p class="w3-small">Цифровой прорыв 2019 Nereal Software</p>
                 </div>
 
             </div>
