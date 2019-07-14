@@ -12,7 +12,7 @@ namespace DB2019.Backend.Api.Controllers
 
         public ActionResult Index()
         {
-            return RedirectToAction("Index", "Help");
+            return RedirectToAction("Map", "Map");
         }
     }
 }

@@ -35,7 +35,7 @@
                 </div>
 
                 <div class="w3-bar w3-black w3-large">
-                    <a href="#" class="w3-bar-item w3-button w3-mobile"><i class="fa fa-home"></i></a>
+                    @*<a href="#" class="w3-bar-item w3-button w3-mobile"><i class="fa fa-home"></i></a>*@
                     <a href="@Url.Action("Map","Map")" class="w3-bar-item w3-button w3-mobile">Карта обращений</a>
                     <div class="w3-dropdown-hover w3-center">
                         <button class="w3-button w3-mobile w3-center">Обращения по категориям</button>
@@ -46,6 +46,7 @@
                             }
                         </div>
                     </div>
+                    <a href="@Url.Action("Index","Awards")" class="w3-bar-item w3-button w3-mobile">Каталог вознаграждений</a>
                     <a href="#" class="w3-bar-item w3-button w3-mobile">О проекте</a>
                 </div>
 
@@ -56,6 +57,10 @@
                     </div>
 
                     @RenderBody()
+
+                    <div class="w3-panel">
+                       &nbsp;
+                    </div>
 
                 </div>
 
