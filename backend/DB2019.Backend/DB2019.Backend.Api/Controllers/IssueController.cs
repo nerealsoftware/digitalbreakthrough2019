@@ -2,13 +2,15 @@
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Runtime.InteropServices;
 using System.Web;
 using System.Web.Http;
-using System.Web.Http.Results;
 using DB2019.Backend.Api.Models;
 using DB2019.Backend.Data;
 using DB2019.Backend.Data.Entities;
+
+using Newtonsoft.Json;
+
+using NLog;
 
 namespace DB2019.Backend.Api.Controllers
 {
@@ -18,6 +20,8 @@ namespace DB2019.Backend.Api.Controllers
     [System.Web.Http.Route("api/issue")]
     public class IssueController : ApiController
     {
+        private static readonly Logger traceLogger = LogManager.GetCurrentClassLogger();
+
         /// <summary>
         ///     Добавить новую заявку
         /// </summary>
@@ -27,6 +31,10 @@ namespace DB2019.Backend.Api.Controllers
             string sessionId,
             [FromBody] NewIssueData data)
         {
+            traceLogger.Debug(
+                "Post new issue: sessionId = {0}, body = {1}",
+                sessionId,
+                JsonConvert.SerializeObject( data, Formatting.None ) );
             if (Guid.TryParse(sessionId, out var session) == false)
                 return BadRequest("Invalid session id");
             if (data == null)
