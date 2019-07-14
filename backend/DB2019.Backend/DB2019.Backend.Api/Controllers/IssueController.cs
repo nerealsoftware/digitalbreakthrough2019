@@ -127,17 +127,17 @@ namespace DB2019.Backend.Api.Controllers
                 var response = new HttpResponseMessage();
                 response.Content = issue.Photo?.Length > 0
                     ? new ByteArrayContent( issue.Photo )
-                    : GetStubPhotoContent();
+                    : GetStubPhotoContent(issueId);
                 response.Content.Headers.ContentType = new MediaTypeHeaderValue( "image/jpeg" );
                 return response;
             }
         }
 
-        private static HttpContent GetStubPhotoContent()
+        private static HttpContent GetStubPhotoContent(int issueId)
         {
             var context = HttpContext.Current;
-            var path = context.Server.MapPath( "~/Images/samples/smp00.jpg" );
-            return new StreamContent( new FileStream( path, FileMode.Open ) );
+            var path = context.Server.MapPath( $"~/Images/samples/smp{(issueId%7):D2}.jpg" );
+            return new StreamContent( new FileStream( path, FileMode.Open, FileAccess.Read, FileShare.Read ) );
         }
 
         /// <summary>
