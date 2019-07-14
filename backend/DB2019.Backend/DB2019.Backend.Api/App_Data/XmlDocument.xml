@@ -538,9 +538,9 @@
             <summary>
             Получить список заявок
             </summary>
-            <param name="categoryId">Идентификатор категории</param>
             <param name="framePosition">Номер первого элемента</param>
             <param name="frameSize">Количество запрашиваемых элементов</param>
+            <param name="categoryId">Идентификатор категории</param>
             <returns></returns>
         </member>
         <member name="M:DB2019.Backend.Api.Controllers.IssueController.Get(System.Int32)">
@@ -556,6 +556,17 @@
             </summary>
             <param name="issueId">Идентификатор заявки</param>
             <param name="sessionId">Сессия пользователя</param>
+            <returns></returns>
+        </member>
+        <member name="M:DB2019.Backend.Api.Controllers.IssueController.GetByPosition(System.Int32,System.Int32,System.Double,System.Double,System.Double)">
+            <summary>
+                Получить заявки по координатам
+            </summary>
+            <param name="framePosition">Номер первого элемента</param>
+            <param name="frameSize">Количество запрашиваемых элементов</param>
+            <param name="latitude">Широта</param>
+            <param name="longitude">Долгота</param>
+            <param name="radius">Радиус (тоже в десятичных градусах, поэтому нужно маленькое значение)</param>
             <returns></returns>
         </member>
         <member name="T:DB2019.Backend.Api.Models.CategoryData">
@@ -674,9 +685,14 @@
                 Идентификатор категории заявки
             </summary>
         </member>
-        <member name="P:DB2019.Backend.Api.Models.NewIssueData.Position">
+        <member name="P:DB2019.Backend.Api.Models.NewIssueData.Latitude">
             <summary>
-                Гео-позиция пользователя
+                Широта
+            </summary>
+        </member>
+        <member name="P:DB2019.Backend.Api.Models.NewIssueData.Longitude">
+            <summary>
+                Долгота
             </summary>
         </member>
         <member name="P:DB2019.Backend.Api.Models.NewIssueData.Photo">

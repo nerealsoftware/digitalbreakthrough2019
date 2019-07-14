@@ -15,10 +15,16 @@ namespace DB2019.Backend.Api.Models
         public int CategoryId { get; set; }
 
         /// <summary>
-        ///     Гео-позиция пользователя
+        ///     Широта
         /// </summary>
         [Required]
-        public GeoCoordinates Position { get; set; }
+        public double Latitude { get; set; }
+
+        /// <summary>
+        ///     Долгота
+        /// </summary>
+        [Required]
+        public double Longitude { get; set; }
 
         /// <summary>
         ///     Фотография к заявке, в base64 формате
