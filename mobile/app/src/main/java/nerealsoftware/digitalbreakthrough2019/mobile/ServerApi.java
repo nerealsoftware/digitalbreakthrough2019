@@ -3,9 +3,12 @@ package nerealsoftware.digitalbreakthrough2019.mobile;
 import java.util.List;
 
 import nerealsoftware.digitalbreakthrough2019.mobile.pojo.Category;
+import nerealsoftware.digitalbreakthrough2019.mobile.pojo.IssueData;
 import nerealsoftware.digitalbreakthrough2019.mobile.pojo.Tag;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 public interface ServerApi {
@@ -17,4 +20,7 @@ public interface ServerApi {
 
     @GET("tag")
     Call<List<Tag>> getTags(@Query("categiryId") int category);
+
+    @POST("issue")
+    Call<IssueData> getByLocation(@Query("sessionId") String session, @Body IssueData data);
 }

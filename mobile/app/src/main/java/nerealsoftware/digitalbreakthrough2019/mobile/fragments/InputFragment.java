@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
+import java.io.ByteArrayOutputStream;
 import java.util.List;
 
 import co.lujun.androidtagview.TagContainerLayout;
@@ -29,6 +31,7 @@ import nerealsoftware.digitalbreakthrough2019.mobile.MainActivity;
 import nerealsoftware.digitalbreakthrough2019.mobile.NetworkService;
 import nerealsoftware.digitalbreakthrough2019.mobile.R;
 import nerealsoftware.digitalbreakthrough2019.mobile.pojo.Category;
+import nerealsoftware.digitalbreakthrough2019.mobile.pojo.IssueData;
 import nerealsoftware.digitalbreakthrough2019.mobile.pojo.Tag;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -46,6 +49,8 @@ public class InputFragment extends Fragment {
     private Button photoButton;
     private TextView comment;
     private Button sendButton;
+
+    private int selectedCategory = -1;
 
     public static InputFragment newInstance() {
         return new InputFragment();
@@ -104,7 +109,8 @@ public class InputFragment extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 // запрос тэгов по категории.
                 // TODO: Надо брать id из самой категории, а не позиция в списке + 1, но для хакатона и так сойдет
-                NetworkService.getInstance().api().getTags(i + 1).enqueue(new Callback<List<Tag>>() {
+                selectedCategory = i + 1;
+                NetworkService.getInstance().api().getTags(selectedCategory).enqueue(new Callback<List<Tag>>() {
                     @Override
                     public void onResponse(Call<List<Tag>> call, Response<List<Tag>> response) {
                         if (response.body() == null) return;
@@ -171,7 +177,35 @@ public class InputFragment extends Fragment {
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String sessionId = ((MainActivity)context).getSessionId();
+                if (sessionId == null) {
+                    Toast.makeText(context, "Отправка невозможна, не определена сессия", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
+                if (selectedCategory < 0) {
+                    Toast.makeText(context, "Отправка невозможна, не определена категория", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+
+                // сжатие фотки перед отправкой
+                Bitmap bitmap = ((BitmapDrawable)photo.getDrawable()).getBitmap();
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 95, baos);
+
+                NetworkService.getInstance().api().getByLocation(sessionId,
+                        new IssueData(selectedCategory, baos.toByteArray(), comment.getText().toString())).enqueue(new Callback<IssueData>() {
+                    @Override
+                    public void onResponse(Call<IssueData> call, Response<IssueData> response) {
+                        Toast.makeText(context, "хоба!", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onFailure(Call<IssueData> call, Throwable t) {
+                        Toast.makeText(context, "Ошибка при отправке обращения: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
     }
