@@ -39,11 +39,6 @@ namespace DB2019.Backend.Api.Models
         public GeoCoordinates Position { get; set; }
 
         /// <summary>
-        ///     Фотография к заявке, в base64 формате
-        /// </summary>
-        public string Photo { get; set; }
-
-        /// <summary>
         ///     Необязательный комментарий к заявке
         /// </summary>
         public string Comment { get; set; }
