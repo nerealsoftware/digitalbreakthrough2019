@@ -24,6 +24,7 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import co.lujun.androidtagview.TagContainerLayout;
@@ -205,9 +206,20 @@ public class InputFragment extends Fragment {
                     lon = location.getLongitude();
                 }
 
+                List<String> tagValues = tags.getTags();
+                List<Integer> tagIds = new ArrayList<>();
+                for (int i = 0; i < tagValues.size() ; i++) {
+                    int color = tags.getTagView(i).getTagBackgroundColor();
+                    if (color == -44462) {
+                        tagIds.add(i);
+                    }
+                    Log.d("NEREAL_POST", "tag = " + i + " color = " + color);
+                }
+
+
                 NetworkService.getInstance().api().addIssue(sessionId,
                         new IssueData(selectedCategory, baos.toByteArray(),
-                                lat, lon, comment.getText().toString()))
+                                lat, lon, comment.getText().toString(), tagIds))
                         .enqueue(new Callback<IssueData>() {
                     @Override
                     public void onResponse(Call<IssueData> call, Response<IssueData> response) {

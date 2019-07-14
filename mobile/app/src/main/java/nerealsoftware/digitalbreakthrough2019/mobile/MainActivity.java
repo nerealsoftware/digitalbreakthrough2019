@@ -182,7 +182,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onLocationChanged(Location location) {
         currentLocation = location;
-        Toast.makeText(this, "определено местоположение: " + currentLocation.getLatitude() + " " + currentLocation.getLongitude(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "определено местоположение: " + currentLocation.getLatitude() + " " + currentLocation.getLongitude(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
