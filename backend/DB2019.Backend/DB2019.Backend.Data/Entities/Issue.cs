@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -12,9 +13,9 @@ namespace DB2019.Backend.Data.Entities
             Tags = new HashSet<Tag>();
         }
 
-        [Key] public int Id { get; set; }
+        [ Key ] public int Id { get; set; }
 
-        [Index] public int UserId { get; set; }
+        [ Index ] public int UserId { get; set; }
 
         public virtual User User { get; set; }
         public int CategoryId { get; set; }
@@ -24,6 +25,8 @@ namespace DB2019.Backend.Data.Entities
         public byte[] Photo { get; set; }
         public string Comment { get; set; }
         public virtual ICollection<Tag> Tags { get; set; }
+        public IssueStatus Status { get; set; }
+        public int Rating { get; set; }
         public DateTime CreatedTime { get; set; }
     }
 }

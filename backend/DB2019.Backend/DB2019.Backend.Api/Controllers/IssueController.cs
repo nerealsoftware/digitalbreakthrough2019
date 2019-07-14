@@ -121,6 +121,8 @@ namespace DB2019.Backend.Api.Controllers
                 Photo = issue.Photo == null || issue.Photo.Length == 0 ? "" : System.Convert.ToBase64String(issue.Photo),
                 Comment = issue.Comment,
                 Tags = issue.Tags.Count > 0 ? issue.Tags.Select(t => t.Id).ToList() : null,
+                Status = issue.Status,
+                Rating = issue.Rating,
                 CreatedTime = issue.CreatedTime
             };
         }
