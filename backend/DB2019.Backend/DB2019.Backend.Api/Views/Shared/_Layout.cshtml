@@ -31,18 +31,18 @@
             <div class="w3-col">
 
                 <div class="w3-container w3-teal w3-border-top">
-                    <h1>@ViewBag.Title</h1>
+                    <h1>@ViewBag.SiteTitle</h1>
                 </div>
 
                 <div class="w3-bar w3-black w3-large">
                     <a href="#" class="w3-bar-item w3-button w3-mobile"><i class="fa fa-home"></i></a>
-                    <a href="#" class="w3-bar-item w3-button w3-mobile">Карта обращений</a>
+                    <a href="@Url.Action("Map","Map")" class="w3-bar-item w3-button w3-mobile">Карта обращений</a>
                     <div class="w3-dropdown-hover w3-center">
                         <button class="w3-button w3-mobile w3-center">Обращения по категориям</button>
                         <div class="w3-dropdown-content w3-bar-block w3-card-4 w3-light-grey">
                             @foreach (var category in LayoutHelper.GetCategories())
                             {
-                                <a href="#" class="w3-bar-item w3-button w3-mobile">@(category.Name ?? "- Не задана -")</a>
+                                <a href="@Url.Action("Category","ShowIssue", new { id = category.Id })" class="w3-bar-item w3-button w3-mobile">@(category.Name ?? "- Не задана -")</a>
                             }
                         </div>
                     </div>
@@ -52,7 +52,7 @@
                 <div class="w3-white">
 
                     <div class="w3-container w3-white">
-                        <h2>Nereal ЖКХ, нереальное решение реальных проблем!</h2>
+                        <h2>@ViewBag.Title</h2>
                     </div>
 
                     @RenderBody()
@@ -60,7 +60,7 @@
                 </div>
 
                 <div class="w3-container w3-teal">
-                    <h5>Nereal ЖКХ</h5>
+                    <h5>@ViewBag.SiteTitle</h5>
                     <p class="w3-small">Обращайтесь к нам, и ваши волосы станут мягкими и шелковистыми! (ц) 2019</p>
                 </div>
 

@@ -4,8 +4,28 @@
     ViewBag.Title = "Обращения: " + Model.Category.Name;
 }
 
-@foreach (var item in Model)
-{
+    <div class="w3-panel">
 
-}
+        <table class="w3-table w3-bordered">
+
+            <tr>
+                <th>Фотография</th>
+                <th>Описание</th>
+                <th>Дата обращения</th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td><a href="@(Url.Action("ById", "ShowIssue", new { id = item.Id }))"><img src="~/Images/img_car.jpg" style="height: 100px;"></a></td>
+                    <td><a href="@(Url.Action("ById", "ShowIssue", new { id = item.Id }))">@item.Comment</a></td>
+                    <td>@item.CreatedTime.ToString("yyyy-MM-dd hh:mm:ss")</td>
+                </tr>
+            }
+
+        </table>
+
+    </div>
+
+
 

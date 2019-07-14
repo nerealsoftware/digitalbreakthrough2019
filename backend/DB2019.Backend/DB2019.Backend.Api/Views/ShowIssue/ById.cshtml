@@ -1,0 +1,41 @@
+﻿@model DB2019.Backend.Api.Models.IssueData
+
+@{
+    ViewBag.Title = "Обращение: " + Model.Comment + $"(№{Model.Id} от {Model.CreatedTime:yyyy-MM-dd})";
+}
+
+<div class="w3-panel">
+    
+    <table class="w3-table w3-bordered">
+
+        <tr>
+            <td colspan="2"><img src="~/Images/img_car.jpg" style="width: 100%;"></td>
+        </tr>
+        
+        @if (!string.IsNullOrEmpty(Model.Comment))
+        {
+            <tr>
+                <td>Описание</td>
+                <td>@Model.Comment</td>
+            </tr>
+        }
+
+        <tr>
+            <td>Дата создания</td>
+            <td>@Model.CreatedTime.ToString("yyyy-MM-dd hh:mm:ss")</td>
+        </tr>
+
+        <tr>
+            <td>Широта</td>
+            <td>@Model.Position.Latitude</td>
+        </tr>
+
+        <tr>
+            <td>Долгота</td>
+            <td>@Model.Position.Longitude</td>
+        </tr>
+
+    </table>
+
+</div>
+

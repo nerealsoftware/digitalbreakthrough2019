@@ -167,6 +167,7 @@
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Helpers\LayoutHelper.cs" />
     <Compile Include="Controllers\ShowIssueController.cs" />
+    <Compile Include="Controllers\MapController.cs" />
     <Compile Include="Controllers\TagController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -182,6 +183,7 @@
     <Compile Include="Models\GeoCoordinates.cs" />
     <Compile Include="Models\IssueData.cs" />
     <Compile Include="Models\NewIssueData.cs" />
+    <Compile Include="Models\MapData.cs" />
     <Compile Include="Models\TagData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -281,6 +283,8 @@
     <Content Include="Views\Home\Sample.cshtml" />
     <Content Include="Views\ShowIssue\Index.cshtml" />
     <Content Include="Views\ShowIssue\Category.cshtml" />
+    <Content Include="Views\Map\Map.cshtml" />
+    <Content Include="Views\ShowIssue\ById.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

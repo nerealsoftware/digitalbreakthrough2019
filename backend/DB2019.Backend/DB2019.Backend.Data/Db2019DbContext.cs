@@ -26,6 +26,7 @@ namespace DB2019.Backend.Data
                 m.MapLeftKey("IssueId");
                 m.MapRightKey("TagId");
             });
+            
         }
     }
 }

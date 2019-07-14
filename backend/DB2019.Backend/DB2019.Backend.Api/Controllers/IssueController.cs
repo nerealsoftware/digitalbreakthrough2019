@@ -83,6 +83,15 @@ namespace DB2019.Backend.Api.Controllers
             return InternalGetIssues(framePosition, frameSize, categoryId);
         }
 
+        internal static IssueData GetById(int issueId)
+        {
+            using (var db = new Db2019DbContext())
+            {
+                var issue = db.Issues.Include(i => i.Tags).FirstOrDefault(i => i.Id == issueId);
+                return Convert(issue);
+            }
+        }
+
         internal static Frame<IssueData> InternalGetIssues(int framePosition, int frameSize, int? categoryId)
         {
             using (var db = new Db2019DbContext())
@@ -90,7 +99,9 @@ namespace DB2019.Backend.Api.Controllers
                 var query = db.Issues.Include(i => i.Tags);
                 if (categoryId.HasValue) query = query.Where(i => i.CategoryId == categoryId.Value);
 
-                var issues = query.Skip(framePosition).Take(frameSize).ToList();
+                if (frameSize >= 0) query = query.Skip(framePosition).Take(frameSize);
+
+                var issues = query.ToList();
                 return new Frame<IssueData>
                 {
                     Data = issues.Select(Convert).ToList(),
@@ -107,7 +118,7 @@ namespace DB2019.Backend.Api.Controllers
                 UserId = issue.UserId,
                 CategoryId = issue.CategoryId,
                 Position = new GeoCoordinates {Latitude = issue.Latitude, Longitude = issue.Longitude},
-                Photo = System.Convert.ToBase64String(issue.Photo),
+                Photo = issue.Photo == null || issue.Photo.Length == 0 ? "" : System.Convert.ToBase64String(issue.Photo),
                 Comment = issue.Comment,
                 Tags = issue.Tags.Count > 0 ? issue.Tags.Select(t => t.Id).ToList() : null,
                 CreatedTime = issue.CreatedTime

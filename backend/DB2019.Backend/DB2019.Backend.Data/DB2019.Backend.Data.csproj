@@ -81,6 +81,10 @@
     <Compile Include="Migrations\201907132113360_AddIssueCreatedTime.Designer.cs">
       <DependentUpon>201907132113360_AddIssueCreatedTime.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201907132342050_FillRandomIssues.cs" />
+    <Compile Include="Migrations\201907132342050_FillRandomIssues.Designer.cs">
+      <DependentUpon>201907132342050_FillRandomIssues.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -109,6 +113,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201907132113360_AddIssueCreatedTime.resx">
       <DependentUpon>201907132113360_AddIssueCreatedTime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907132342050_FillRandomIssues.resx">
+      <DependentUpon>201907132342050_FillRandomIssues.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
