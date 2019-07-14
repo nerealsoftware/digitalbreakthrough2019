@@ -508,7 +508,7 @@
             <summary>
                 Получить список меток по категории
             </summary>
-            <param name="categiryId">Идентификатор категории</param>
+            <param name="categoryId">Идентификатор категории</param>
             <returns></returns>
         </member>
         <member name="T:DB2019.Backend.Api.Controllers.CategoryController">
@@ -541,6 +541,21 @@
             <param name="categoryId">Идентификатор категории</param>
             <param name="framePosition">Номер первого элемента</param>
             <param name="frameSize">Количество запрашиваемых элементов</param>
+            <returns></returns>
+        </member>
+        <member name="M:DB2019.Backend.Api.Controllers.IssueController.Get(System.Int32)">
+            <summary>
+            Получить заявку
+            </summary>
+            <param name="issueId">Идентификатор заявки</param>
+            <returns></returns>
+        </member>
+        <member name="M:DB2019.Backend.Api.Controllers.IssueController.Vote(System.String,System.Int32)">
+            <summary>
+            Проголосовать за заявку
+            </summary>
+            <param name="issueId">Идентификатор заявки</param>
+            <param name="sessionId">Сессия пользователя</param>
             <returns></returns>
         </member>
         <member name="T:DB2019.Backend.Api.Models.CategoryData">
@@ -632,6 +647,16 @@
         <member name="P:DB2019.Backend.Api.Models.IssueData.Tags">
             <summary>
                 Список идентификаторов меток
+            </summary>
+        </member>
+        <member name="P:DB2019.Backend.Api.Models.IssueData.Status">
+            <summary>
+                Статус заявки
+            </summary>
+        </member>
+        <member name="P:DB2019.Backend.Api.Models.IssueData.Rating">
+            <summary>
+                Рейтинг
             </summary>
         </member>
         <member name="P:DB2019.Backend.Api.Models.IssueData.CreatedTime">

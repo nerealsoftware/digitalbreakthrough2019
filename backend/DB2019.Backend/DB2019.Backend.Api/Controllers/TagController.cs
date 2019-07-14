@@ -29,13 +29,13 @@ namespace DB2019.Backend.Api.Controllers
         /// <summary>
         ///     Получить список меток по категории
         /// </summary>
-        /// <param name="categiryId">Идентификатор категории</param>
+        /// <param name="categoryId">Идентификатор категории</param>
         /// <returns></returns>
-        public List<TagData> Get(int categiryId)
+        public List<TagData> Get(int categoryId)
         {
             using (var db = new Db2019DbContext())
             {
-                var tags = db.Tags.Where(t => t.CategoryId == categiryId).OrderBy(t => t.Id).ToList();
+                var tags = db.Tags.Where(t => t.CategoryId == categoryId).OrderBy(t => t.Id).ToList();
                 return tags.Select(Convert).ToList();
             }
         }

@@ -1,6 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using DB2019.Backend.Data.Entities;
+
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+
 namespace DB2019.Backend.Api.Models
 {
     /// <summary>
@@ -46,7 +51,18 @@ namespace DB2019.Backend.Api.Models
         /// <summary>
         ///     Список идентификаторов меток
         /// </summary>
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public List<int> Tags { get; set; }
+
+        /// <summary>
+        ///     Статус заявки
+        /// </summary>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public IssueStatus Status { get; set; }
+        /// <summary>
+        ///     Рейтинг
+        /// </summary>
+        public int Rating { get; set; }
 
         /// <summary>
         ///     Время создания заявки

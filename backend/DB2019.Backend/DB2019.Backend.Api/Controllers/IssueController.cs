@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Linq;
-using System.Runtime.InteropServices;
+using System.Net;
+using System.Web;
 using System.Web.Http;
-using System.Web.Http.Results;
 using DB2019.Backend.Api.Models;
 using DB2019.Backend.Data;
 using DB2019.Backend.Data.Entities;
+
+using Newtonsoft.Json;
+
+using NLog;
 
 namespace DB2019.Backend.Api.Controllers
 {
@@ -16,6 +20,8 @@ namespace DB2019.Backend.Api.Controllers
     [System.Web.Http.Route("api/issue")]
     public class IssueController : ApiController
     {
+        private static readonly Logger traceLogger = LogManager.GetCurrentClassLogger();
+
         /// <summary>
         ///     Добавить новую заявку
         /// </summary>
@@ -25,6 +31,10 @@ namespace DB2019.Backend.Api.Controllers
             string sessionId,
             [FromBody] NewIssueData data)
         {
+            traceLogger.Debug(
+                "Post new issue: sessionId = {0}, body = {1}",
+                sessionId,
+                JsonConvert.SerializeObject( data, Formatting.None ) );
             if (Guid.TryParse(sessionId, out var session) == false)
                 return BadRequest("Invalid session id");
             if (data == null)
@@ -67,7 +77,7 @@ namespace DB2019.Backend.Api.Controllers
                 db.Issues.Add(issue);
                 db.SaveChanges();
 
-                return new OkResult(this);
+                return Ok();
             }
         }
 
@@ -81,6 +91,42 @@ namespace DB2019.Backend.Api.Controllers
         public Frame<IssueData> Get(int framePosition, int frameSize, int? categoryId = null)
         {
             return InternalGetIssues(framePosition, frameSize, categoryId);
+        }
+
+        /// <summary>
+        /// Получить заявку
+        /// </summary>
+        /// <param name="issueId">Идентификатор заявки</param>
+        /// <returns></returns>
+        public IssueData Get(int issueId)
+        {
+            var issue = GetById( issueId );
+            if (issue == null) throw new HttpException((int)HttpStatusCode.NotFound, "Issue not found");
+            return issue;
+        }
+
+        /// <summary>
+        /// Проголосовать за заявку
+        /// </summary>
+        /// <param name="issueId">Идентификатор заявки</param>
+        /// <param name="sessionId">Сессия пользователя</param>
+        /// <returns></returns>
+        [Route("api/issue/vote")]
+        public IHttpActionResult Vote(string sessionId, int issueId)
+        {
+            using (var db = new Db2019DbContext())
+            {
+                if (Guid.TryParse(sessionId, out var session) == false)
+                    return BadRequest("Invalid session id");
+                var user = db.Users.FirstOrDefault(u => u.SessionId == session);
+                if (user == null) return Unauthorized();
+                var issue = db.Issues.Include(i => i.Tags).FirstOrDefault(i => i.Id == issueId);
+                if (issue == null) throw new HttpException((int)HttpStatusCode.NotFound, "Issue not found");
+
+                issue.Rating += 1;
+                db.SaveChanges();
+                return Ok();
+            }
         }
 
         internal static IssueData GetById(int issueId)
@@ -112,6 +158,8 @@ namespace DB2019.Backend.Api.Controllers
 
         private static IssueData Convert(Issue issue)
         {
+            if( issue == null ) return null;
+
             return new IssueData
             {
                 Id = issue.Id,
@@ -122,6 +170,8 @@ namespace DB2019.Backend.Api.Controllers
                 Photo = issue.Photo == null || issue.Photo.Length == 0 ? "" : System.Convert.ToBase64String(issue.Photo),
                 Comment = issue.Comment,
                 Tags = issue.Tags.Count > 0 ? issue.Tags.Select(t => t.Id).ToList() : null,
+                Status = issue.Status,
+                Rating = issue.Rating,
                 CreatedTime = issue.CreatedTime
             };
         }
