@@ -21,6 +21,11 @@
         }
 
         <tr>
+            <td>Статус</td>
+            <td>@(DB2019.Backend.Api.Controllers.MapController.StatusNames[Model.Status])</td>
+        </tr>
+
+        <tr>
             <td>Дата создания</td>
             <td>@Model.CreatedTime.ToString("yyyy-MM-dd hh:mm:ss")</td>
         </tr>
@@ -38,6 +43,11 @@
         <tr>
             <td>Долгота</td>
             <td>@Model.Position.Longitude</td>
+        </tr>
+
+        <tr>
+            <td>Рейтинг</td>
+            <td>@Model.Rating</td>
         </tr>
 
     </table>

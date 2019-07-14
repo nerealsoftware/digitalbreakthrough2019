@@ -14,6 +14,20 @@ namespace DB2019.Backend.Api.Controllers
     {
         public static Point centerPoint = new Point(58.604, 49.640);
 
+        public static Dictionary<IssueStatus, string> StatusNames = new Dictionary<IssueStatus, string>()
+        {
+            { IssueStatus.New, "Новый" },
+            { IssueStatus.InProcess, "В работе" },
+            { IssueStatus.Completed, "Завершен" },
+        };
+
+        public static Dictionary<IssueStatus, string> StatusCodes= new Dictionary<IssueStatus, string>()
+        {
+            { IssueStatus.New, "NEW" },
+            { IssueStatus.InProcess, "PROCESS" },
+            { IssueStatus.Completed, "PROC" },
+        };
+
         public ActionResult Map()
         {
             return View();
@@ -34,9 +48,15 @@ namespace DB2019.Backend.Api.Controllers
                     {
                         Coordinate = new Point(item.Latitude, item.Longitude),
                         Hint = item.Category.Name,
-                        Description = string.Format("<p><a href=\"{0}\">№ {1} От: {2}</a><br>{3}<br>{4}<br></p>", Url.Action("ById","ShowIssue",new { id = item.Id }),item.Id,
-                            item.CreatedTime.ToString("yyyy.MM.dd"), item.Category.Name, item.Comment),
-                        StateCode = index % 3 == 0 ? "PROC" : index % 3 == 1 ? "NEW" : "PROCESS"
+                        Description = string.Format("<p><a href=\"{0}\">№ {1} От: {2}</a><br>Статус:{3}<br>Рейтинг: {4}<br>{5}<br>{6}<br></p>",
+                            Url.Action("ById","ShowIssue",new { id = item.Id }),
+                            item.Id,
+                            item.CreatedTime.ToString("yyyy.MM.dd"),
+                            StatusNames[item.Status],
+                            item.Rating, 
+                            item.Category.Name, 
+                            item.Comment),
+                        StateCode = StatusCodes[item.Status] // % 3 == 0 ? "PROC" : index % 3 == 1 ? "NEW" : "PROCESS"
                     });
                 }
             }

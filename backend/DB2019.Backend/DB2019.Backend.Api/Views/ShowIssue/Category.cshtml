@@ -17,9 +17,15 @@
             @foreach (var item in Model)
             {
                 <tr>
-                    <td><a href="@(Url.Action("ById", "ShowIssue", new { id = item.Id }))"><img src="~/Images/img_car.jpg" style="height: 100px;"></a></td>
+                    <td rowspan="2"><a href="@(Url.Action("ById", "ShowIssue", new { id = item.Id }))"><img src="~/Images/img_car.jpg" style="height: 100px;"></a></td>
                     <td><a href="@(Url.Action("ById", "ShowIssue", new { id = item.Id }))">@item.Comment</a></td>
                     <td>@item.CreatedTime.ToString("yyyy-MM-dd hh:mm:ss")</td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        Статус: @(DB2019.Backend.Api.Controllers.MapController.StatusNames[item.Status]);
+                        Рейтинг: @item.Rating
+                    </td>
                 </tr>
             }
 
